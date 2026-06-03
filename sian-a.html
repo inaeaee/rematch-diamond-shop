@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<title>시안 A · 클린 미니멀</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"/>
+<style>
+:root{
+  --pink:#FF2D78; --pink-deep:#E0005A; --pink-soft:#FFF0F6; --pink-tint:#FFE6F0;
+  --purple:#7B2FBE; --purple-2:#9840DF;
+  --ink:#191F28; --g7:#4E5968; --g5:#8B95A1; --g4:#B0B8C1; --line:#F0F1F3; --bg-soft:#F7F8FA;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{background:#E5E7EA;}
+body{width:360px;margin:0 auto;background:#fff;font-family:'Pretendard',sans-serif;color:var(--ink);letter-spacing:-0.2px;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+.tag{position:sticky;top:0;z-index:101;background:#fff;text-align:center;font-size:11px;font-weight:700;color:var(--g5);padding:6px;border-bottom:1px solid var(--line);}
+.hdr{position:sticky;top:29px;z-index:100;width:360px;height:56px;background:rgba(255,255,255,.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;}
+.hdr-logo{font-size:21px;font-weight:800;letter-spacing:-0.6px;}.hdr-logo em{font-style:italic;}
+.hero-wrap{padding:8px 16px 0;}
+.hero{background:linear-gradient(130deg,#1A083A,#2B0D58 42%,#4A1080);border-radius:20px;padding:20px;display:flex;align-items:flex-end;justify-content:space-between;min-height:120px;overflow:hidden;box-shadow:0 8px 22px rgba(74,16,128,.28);}
+.hero-tag{font-size:12px;color:rgba(255,255,255,.7);margin-bottom:9px;}
+.hero-cta{display:inline-flex;align-items:center;gap:6px;background:var(--pink);color:#fff;border:none;border-radius:999px;padding:11px 18px;font-size:13.5px;font-weight:700;box-shadow:0 8px 22px rgba(255,45,120,.28);}
+.hero-gem{font-size:42px;}
+.tabs{width:328px;margin:18px 16px 4px;display:flex;gap:4px;background:var(--bg-soft);border-radius:14px;padding:4px;}
+.tab-btn{flex:1;height:42px;border:none;background:transparent;font-family:inherit;font-size:14.5px;font-weight:600;color:var(--g5);border-radius:11px;}
+.tab-btn.on{background:#fff;color:var(--ink);font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,.07);}
+.memb{width:328px;margin:12px 16px;display:flex;align-items:center;gap:10px;padding:15px 16px;background:linear-gradient(135deg,#FFF6FA,#FFF0F6);border:1px solid var(--line);border-radius:16px;box-shadow:0 4px 16px rgba(0,0,0,.05);}
+.memb-txt{flex:1;font-size:13.5px;font-weight:600;}.memb-txt em{color:var(--pink);font-style:normal;font-weight:800;}
+.first{display:flex;align-items:center;justify-content:center;gap:6px;width:328px;margin:0 16px 8px;background:linear-gradient(120deg,var(--purple),var(--purple-2));border:none;border-radius:16px;height:52px;font-family:inherit;font-size:14.5px;font-weight:700;color:#fff;box-shadow:0 6px 18px rgba(123,47,190,.3);}
+.first em{color:#FFD84D;font-style:normal;font-weight:800;}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:8px 16px 16px;}
+.card{position:relative;background:#fff;border:2px solid transparent;border-radius:18px;box-shadow:0 4px 16px rgba(0,0,0,.05);overflow:hidden;padding:0;font-family:inherit;width:100%;transition:transform .18s cubic-bezier(.34,1.56,.64,1),box-shadow .18s,border-color .15s;}
+.card:active{transform:scale(.97);}
+.card.sel{border-color:var(--pink);background:var(--pink-soft);box-shadow:0 0 0 4px rgba(255,45,120,.12),0 10px 24px rgba(255,45,120,.22);transform:translateY(-4px);}
+.mark{position:absolute;top:10px;right:10px;width:24px;height:24px;background:var(--pink);border-radius:999px;display:none;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(255,45,120,.45);}
+.card.sel .mark{display:flex;}
+.badge{position:absolute;top:10px;left:10px;border-radius:999px;font-size:10px;font-weight:700;color:#fff;padding:4px 9px;background:linear-gradient(120deg,#FF6B35,#FF9000);box-shadow:0 3px 8px rgba(255,107,53,.35);}
+.img{width:100%;aspect-ratio:1/0.74;display:flex;align-items:center;justify-content:center;font-size:40px;background:radial-gradient(circle at 50% 40%,#FFE6F2,#FBEFFF);}
+.top{padding:16px 12px 12px;text-align:center;}
+.qty{font-size:17px;font-weight:800;}.sub{font-size:11px;color:var(--g5);margin-top:4px;}
+.total{margin:0 12px 10px;background:var(--pink-tint);border-radius:12px;padding:7px 8px;text-align:center;}
+.total-l{font-size:9.5px;color:var(--g5);}.total-v{font-size:13px;font-weight:800;color:var(--pink);margin-top:3px;}
+.price-row{padding:0 12px 16px;text-align:center;}
+.price{font-size:18px;font-weight:800;}.unit{font-size:10px;color:var(--g4);margin-top:3px;}
+.sticky{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:360px;padding:0 16px 16px;}
+.sticky::before{content:'';position:absolute;left:0;right:0;top:-28px;height:28px;background:linear-gradient(to top,#fff 20%,transparent);}
+.scard{background:#fff;border-radius:20px;box-shadow:0 -6px 24px rgba(0,0,0,.06);padding:14px 16px 16px;}
+.safe{text-align:center;font-size:10.5px;color:var(--g5);margin-bottom:10px;}
+.summ{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:12px;min-height:24px;}
+.sname{font-size:13px;font-weight:600;color:var(--g5);}.sprice{font-size:22px;font-weight:800;}.sprice.empty{font-size:13px;color:var(--g4);}
+.pay{width:100%;height:56px;background:var(--pink);color:#fff;border:none;border-radius:16px;font-family:inherit;font-size:17px;font-weight:800;box-shadow:0 8px 22px rgba(255,45,120,.28);}
+.pay.dis{background:#E5E8EB;color:var(--g4);box-shadow:none;}
+.spacer{height:160px;}
+</style></head>
+<body>
+<div class="tag">시안 A · 클린 미니멀 (토스풍)</div>
+<header class="hdr"><div class="hdr-logo"><em>R</em>ematch</div></header>
+<div class="hero-wrap"><div class="hero"><div><p class="hero-tag">리매치 이용방법</p><button class="hero-cta">초보자 가이드 보기 👆</button></div><span class="hero-gem">💎</span></div></div>
+<div class="tabs"><button class="tab-btn on">다이아</button><button class="tab-btn">어워드티켓</button></div>
+<button class="memb"><span>🌸</span><span class="memb-txt">로얄 멤버십 가입 시 <em>15%</em> 할인!</span><span>›</span></button>
+<button class="first">🎁 첫 구매 시 추가 다이아 <em>2배</em> 증정!</button>
+<div class="grid">
+<button class="card" onclick="pick(this,'다이아 150개','₩1,080','총 300개')"><span class="mark">✓</span><span class="badge">첫 구매 2배</span><div class="img">💝</div><div class="top"><div class="qty">💎 150개</div><div class="sub">기본 150 + 보너스 150</div></div><div class="total"><div class="total-l">실제 받는 다이아</div><div class="total-v">💎 300개</div></div><div class="price-row"><div class="price">₩1,080</div><div class="unit">개당 약 3.6원</div></div></button>
+<button class="card" onclick="pick(this,'다이아 850개','₩5,300','총 1,700개')"><span class="mark">✓</span><span class="badge">첫 구매 2배</span><div class="img">💝</div><div class="top"><div class="qty">💎 850개</div><div class="sub">기본 850 + 보너스 850</div></div><div class="total"><div class="total-l">실제 받는 다이아</div><div class="total-v">💎 1,700개</div></div><div class="price-row"><div class="price">₩5,300</div><div class="unit">개당 약 3.1원</div></div></button>
+<button class="card" onclick="pick(this,'다이아 2,600개','₩13,400','총 5,200개')"><span class="mark">✓</span><span class="badge">첫 구매 2배</span><div class="img">🎁</div><div class="top"><div class="qty">💎 2,600개</div><div class="sub">기본 2,600 + 보너스 2,600</div></div><div class="total"><div class="total-l">실제 받는 다이아</div><div class="total-v">💎 5,200개</div></div><div class="price-row"><div class="price">₩13,400</div><div class="unit">개당 약 2.6원</div></div></button>
+<button class="card" onclick="pick(this,'다이아 12,500개','₩52,000','총 25,000개')"><span class="mark">✓</span><span class="badge">첫 구매 2배</span><div class="img">🎁</div><div class="top"><div class="qty">💎 12,500개</div><div class="sub">기본 12,500 + 보너스 12,500</div></div><div class="total"><div class="total-l">실제 받는 다이아</div><div class="total-v">💎 25,000개</div></div><div class="price-row"><div class="price">₩52,000</div><div class="unit">개당 약 2.1원</div></div></button>
+<button class="card" onclick="pick(this,'다이아 32,000개','₩98,000','총 64,000개')"><span class="mark">✓</span><span class="badge">첫 구매 2배</span><div class="img">🧳</div><div class="top"><div class="qty">💎 32,000개</div><div class="sub">기본 32,000 + 보너스 32,000</div></div><div class="total"><div class="total-l">실제 받는 다이아</div><div class="total-v">💎 64,000개</div></div><div class="price-row"><div class="price">₩98,000</div><div class="unit">개당 약 1.5원</div></div></button>
+<button class="card" onclick="pick(this,'다이아 68,000개','₩197,000','총 136,000개')"><span class="mark">✓</span><span class="badge">첫 구매 2배</span><div class="img">🧳</div><div class="top"><div class="qty">💎 68,000개</div><div class="sub">기본 68,000 + 보너스 68,000</div></div><div class="total"><div class="total-l">실제 받는 다이아</div><div class="total-v">💎 136,000개</div></div><div class="price-row"><div class="price">₩197,000</div><div class="unit">개당 약 1.4원</div></div></button>
+</div>
+<div class="spacer"></div>
+<div class="sticky"><div class="scard"><div class="safe">🔒 결제 정보는 안전하게 암호화되어 처리돼요</div><div class="summ"><div class="sname" id="n">선택한 상품</div><div class="sprice empty" id="p">상품을 선택해 주세요</div></div><button class="pay dis" id="b" onclick="buy()">결제하기</button></div></div>
+<script>
+var cur=null;
+function pick(c,name,price,total){if(cur)cur.classList.remove('sel');c.classList.add('sel');cur=c;document.getElementById('n').textContent=name+' · '+total;var p=document.getElementById('p');p.textContent=price;p.classList.remove('empty');document.getElementById('b').classList.remove('dis');}
+function buy(){if(!cur){alert('상품을 먼저 선택해 주세요');return;}alert('결제 페이지로 이동합니다.');}
+</script>
+</body></html>
