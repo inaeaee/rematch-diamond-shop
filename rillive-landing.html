@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Rillive · 휴대폰 하나로 글로벌 스타가 되는 라이브 플랫폼</title>
-<meta name="description" content="AI 실시간 통역(정확도 95%)으로 언어 장벽 없이 한·일 팬덤과 연결되는 O2O 라이브 플랫폼. 라이브 1위가 실제 화보·무대 데뷔로 이어집니다." />
+<title>Rillive · 언어의 장벽을 넘어, 글로벌 무대의 주인공이 되세요</title>
+<meta name="description" content="실시간 AI 번역으로 전 세계 팬들과 소통하는 글로벌 라이브 플랫폼, Rillive. 라이브 1위가 실제 화보·무대 데뷔로 이어집니다." />
 
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet" />
@@ -19,12 +19,12 @@
       keyframes: {
         floaty: { '0%,100%':{transform:'translateY(0)'}, '50%':{transform:'translateY(-16px)'} },
         pulseGlow: { '0%,100%':{opacity:'0.5'}, '50%':{opacity:'1'} },
-        marquee: { '0%':{transform:'translateX(0)'}, '100%':{transform:'translateX(-50%)'} },
+        bobby: { '0%,100%':{transform:'translateY(0)'}, '50%':{transform:'translateY(-8px)'} },
       },
       animation: {
         floaty: 'floaty 6s ease-in-out infinite',
         pulseGlow: 'pulseGlow 5s ease-in-out infinite',
-        marquee: 'marquee 30s linear infinite',
+        bobby: 'bobby 2.5s ease-in-out infinite',
       },
     } },
   };
@@ -33,24 +33,24 @@
 <style>
   html { scroll-behavior: smooth; }
   body { -webkit-font-smoothing: antialiased; }
+  html:lang(ja) { font-family:'Noto Sans JP','Pretendard',sans-serif; }
   .grad-text { background: linear-gradient(100deg,#507DFF,#6A5CFF,#7D55FF); -webkit-background-clip:text; background-clip:text; color:transparent; }
   .grad-bg { background: linear-gradient(120deg,#507DFF,#6A5CFF,#7D55FF); }
   .grad-bg-deep { background: linear-gradient(135deg,#4F5BFF 0%, #1A1A1A 62%); }
   .glass { background: rgba(255,255,255,0.06); backdrop-filter: blur(14px); border:1px solid rgba(255,255,255,0.12); }
   .reveal { opacity:0; transform:translateY(34px); transition:opacity .8s cubic-bezier(.2,.7,.2,1), transform .8s cubic-bezier(.2,.7,.2,1); }
   .reveal.in { opacity:1; transform:none; }
-  [data-ja] { display:none; }
-  html[lang="ja"] [data-ko] { display:none; }
-  html[lang="ja"] [data-ja] { display:inline; }
-  html[lang="ja"] .blk[data-ja] { display:block; }
-  html[lang="ja"] { font-family:'Noto Sans JP','Pretendard',sans-serif; }
-  .no-scrollbar::-webkit-scrollbar { display:none; }
+  .pixel { image-rendering: pixelated; image-rendering: crisp-edges; }
+  /* phone frame */
   .phone { position:relative; border-radius:2.6rem; padding:8px; background:#0a0a0a;
            box-shadow:0 40px 80px -20px rgba(20,20,40,.55), 0 0 0 1px rgba(255,255,255,.06) inset; }
   .phone > .screen { border-radius:2rem; overflow:hidden; background:#262626; display:block; }
   .phone > .screen img { display:block; width:100%; height:100%; object-fit:cover; }
   .phone::after { content:''; position:absolute; top:14px; left:50%; transform:translateX(-50%);
                   width:38%; height:22px; background:#0a0a0a; border-radius:0 0 14px 14px; z-index:2; }
+  /* language dropdown */
+  .lang-menu { opacity:0; visibility:hidden; transform:translateY(8px); transition:.18s; }
+  .lang-wrap:hover .lang-menu, .lang-wrap:focus-within .lang-menu { opacity:1; visibility:visible; transform:none; }
 </style>
 </head>
 
@@ -58,315 +58,255 @@
 
 <!-- ============ HEADER ============ -->
 <header id="hdr" class="fixed top-0 inset-x-0 z-50 transition-all duration-300">
-  <div class="max-w-8xl mx-auto px-10 h-[72px] flex items-center justify-between">
+  <div class="max-w-8xl mx-auto px-5 sm:px-8 lg:px-10 h-16 sm:h-[72px] flex items-center justify-between">
     <a href="#top" class="flex items-center gap-2.5">
       <span class="w-9 h-9 rounded-[11px] grad-bg flex items-center justify-center shadow-lg shadow-brand-mid/30">
         <svg viewBox="106 170 390 260" class="w-6 h-6"><path d="M391.492 174.338C446.733 174.338 491.533 220.152 491.533 276.615C491.533 276.615 500.964 426.338 299.102 426.338C97.2391 426.338 106.671 276.615 106.671 276.615C106.671 220.103 151.47 174.338 206.712 174.338C222.048 174.338 236.572 177.895 249.539 184.179L250.886 184.796C250.886 184.796 302.037 208.686 347.414 184.796C360.695 178.08 375.661 174.338 391.492 174.338ZM232.604 270.992C222.195 270.992 213.757 279.43 213.757 289.839C213.757 300.247 222.195 308.684 232.604 308.684C243.011 308.684 251.449 300.247 251.449 289.839C251.449 279.43 243.012 270.992 232.604 270.992ZM372.603 270.992C362.194 270.992 353.756 279.43 353.756 289.839C353.756 300.247 362.194 308.684 372.603 308.684C383.01 308.684 391.448 300.247 391.448 289.839C391.448 279.43 383.011 270.992 372.603 270.992Z" fill="white"/></svg>
       </span>
-      <span class="font-extrabold text-xl tracking-tight text-white">Rillive</span>
+      <span class="font-extrabold text-lg sm:text-xl tracking-tight text-white">Rillive</span>
     </a>
+
     <nav class="hidden lg:flex items-center gap-9 text-[15px] font-semibold text-white/80">
-      <a href="#translate" class="hover:text-white transition"><span data-ko>실시간 통역</span><span data-ja>リアルタイム翻訳</span></a>
-      <a href="#stage" class="hover:text-white transition"><span data-ko>데뷔 스토리</span><span data-ja>デビュー</span></a>
-      <a href="#preview" class="hover:text-white transition"><span data-ko>앱 미리보기</span><span data-ja>アプリ</span></a>
-      <a href="#audition" class="hover:text-white transition"><span data-ko>진행중 오디션</span><span data-ja>オーディション</span></a>
+      <a href="#features" class="hover:text-white transition" data-i18n="nav_features"></a>
+      <a href="#translate" class="hover:text-white transition" data-i18n="nav_translate"></a>
+      <a href="#ranking" class="hover:text-white transition" data-i18n="nav_ranking"></a>
     </nav>
-    <div class="flex items-center gap-3">
-      <div class="flex items-center rounded-full glass p-0.5 text-xs font-bold">
-        <button onclick="setLang('ko')" id="lang-ko" class="px-3 py-1.5 rounded-full transition bg-white/90 !text-brand-ink">KO</button>
-        <button onclick="setLang('ja')" id="lang-ja" class="px-3 py-1.5 rounded-full transition text-white/80">JA</button>
+
+    <div class="flex items-center gap-2 sm:gap-3">
+      <!-- language dropdown -->
+      <div class="lang-wrap relative" tabindex="0">
+        <button class="flex items-center gap-1.5 rounded-full glass px-3 py-2 text-xs sm:text-sm font-bold text-white">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 010 18M12 3a15 15 0 000 18"/></svg>
+          <span id="lang-label">한국어</span>
+          <svg class="w-3 h-3 opacity-70" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="lang-menu absolute right-0 mt-2 w-36 rounded-xl bg-white shadow-xl shadow-black/20 overflow-hidden py-1">
+          <button onclick="setLang('ko')" class="w-full text-left px-4 py-2.5 text-sm font-semibold text-brand-ink hover:bg-brand-mist">한국어</button>
+          <button onclick="setLang('en')" class="w-full text-left px-4 py-2.5 text-sm font-semibold text-brand-ink hover:bg-brand-mist">English</button>
+          <button onclick="setLang('ja')" class="w-full text-left px-4 py-2.5 text-sm font-semibold text-brand-ink hover:bg-brand-mist">日本語</button>
+        </div>
       </div>
-      <!-- persistent single CTA -->
-      <a href="#start" class="inline-flex items-center gap-1.5 rounded-full bg-white text-brand-ink px-5 py-2.5 text-[15px] font-bold hover:scale-[1.03] active:scale-95 transition shadow-lg shadow-black/10">
-        <span data-ko>앱 다운로드</span><span data-ja>アプリDL</span>
-      </a>
+      <a href="#start" class="inline-flex items-center gap-1.5 rounded-full bg-white text-brand-ink px-4 sm:px-5 py-2 sm:py-2.5 text-sm sm:text-[15px] font-bold hover:scale-[1.03] active:scale-95 transition shadow-lg shadow-black/10" data-i18n="nav_download"></a>
     </div>
   </div>
 </header>
 
-<!-- ============ HERO (phone cluster kept) ============ -->
-<section id="top" class="relative overflow-hidden grad-bg-deep text-white pt-36 pb-28">
-  <div class="pointer-events-none absolute -top-32 -left-20 w-[42rem] h-[42rem] rounded-full bg-brand-blue/40 blur-[150px] animate-pulseGlow"></div>
-  <div class="pointer-events-none absolute top-1/4 right-0 w-[44rem] h-[44rem] rounded-full bg-brand-purple/40 blur-[160px] animate-pulseGlow" style="animation-delay:-2.5s"></div>
+<!-- ============ HERO ============ -->
+<section id="top" class="relative overflow-hidden grad-bg-deep text-white pt-28 sm:pt-32 lg:pt-36 pb-20 lg:pb-28">
+  <div class="pointer-events-none absolute -top-32 -left-20 w-[36rem] h-[36rem] rounded-full bg-brand-blue/40 blur-[150px] animate-pulseGlow"></div>
+  <div class="pointer-events-none absolute top-1/4 right-0 w-[40rem] h-[40rem] rounded-full bg-brand-purple/40 blur-[160px] animate-pulseGlow" style="animation-delay:-2.5s"></div>
 
-  <div class="relative max-w-8xl mx-auto px-10 grid grid-cols-1 lg:grid-cols-[1.05fr_1fr] gap-16 items-center">
-    <div>
-      <span class="inline-flex items-center gap-2 rounded-full glass px-4 py-2 text-sm font-bold mb-7">
+  <div class="relative max-w-8xl mx-auto px-5 sm:px-8 lg:px-10 grid grid-cols-1 lg:grid-cols-[1.05fr_1fr] gap-12 lg:gap-16 items-center">
+    <!-- copy : centered on mobile, left on desktop -->
+    <div class="text-center lg:text-left">
+      <span class="inline-flex items-center gap-2 rounded-full glass px-4 py-2 text-xs sm:text-sm font-bold mb-6">
         <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-        <span data-ko>프리시즌 데뷔 챌린지 모집중 · D-7</span><span data-ja>プレシーズン・デビューチャレンジ募集中 · D-7</span>
+        <span data-i18n="hero_badge"></span>
       </span>
-      <h1 class="font-extrabold tracking-tight leading-[1.1] text-6xl xl:text-7xl">
-        <span data-ko class="blk">휴대폰 하나로,<br>오늘 <span class="grad-text">글로벌 스타</span>가<br>된다</span>
-        <span data-ja class="blk">スマホひとつで、<br>今日 <span class="grad-text">グローバルスター</span>に。</span>
-      </h1>
-      <p class="mt-7 text-xl text-white/70 leading-relaxed max-w-xl">
-        <span data-ko>AI 실시간 통역 정확도 <b class="text-white">95%</b>. 언어 장벽 없이 한·일 팬덤과 연결되고, 라이브 랭킹 1위가 실제 화보·무대 데뷔로 이어지는 <b class="text-white">O2O 라이브 플랫폼</b>.</span>
-        <span data-ja>AIリアルタイム翻訳 精度 <b class="text-white">95%</b>。言語の壁なく日韓のファンとつながり、ライブ1位が実際の撮影・舞台デビューにつながる <b class="text-white">O2Oプラットフォーム</b>。</span>
-      </p>
-      <div class="mt-9 flex flex-wrap items-center gap-4">
-        <a href="#" class="inline-flex items-center gap-3 rounded-2xl bg-white text-brand-ink px-6 py-4 font-bold hover:scale-[1.03] active:scale-95 transition shadow-xl shadow-black/20">
-          <svg viewBox="0 0 24 24" class="w-7 h-7" fill="currentColor"><path d="M17.05 12.04c-.02-2.3 1.88-3.4 1.96-3.46-1.07-1.56-2.73-1.78-3.32-1.8-1.41-.14-2.76.83-3.48.83-.72 0-1.83-.81-3-.79-1.54.02-2.96.9-3.75 2.28-1.6 2.78-.41 6.89 1.15 9.14.76 1.1 1.67 2.34 2.86 2.29 1.15-.05 1.58-.74 2.97-.74 1.39 0 1.78.74 3 .72 1.24-.02 2.02-1.12 2.78-2.23.88-1.28 1.24-2.52 1.26-2.58-.03-.01-2.42-.93-2.44-3.69zM14.8 5.18c.63-.77 1.06-1.84.94-2.91-.91.04-2.02.61-2.68 1.37-.59.68-1.1 1.77-.96 2.81 1.02.08 2.06-.52 2.7-1.27z"/></svg>
-          <span class="text-left leading-tight"><span class="block text-[11px] font-medium opacity-60">Download on the</span>App Store</span>
+      <h1 class="font-extrabold tracking-tight leading-[1.14] text-[2.1rem] sm:text-5xl lg:text-6xl xl:text-[4rem]" data-i18n="hero_title"></h1>
+      <p class="mt-5 sm:mt-7 text-base sm:text-lg lg:text-xl text-white/70 leading-relaxed max-w-md sm:max-w-xl mx-auto lg:mx-0" data-i18n="hero_sub"></p>
+
+      <div class="mt-7 sm:mt-9 flex flex-wrap items-center justify-center lg:justify-start gap-3 sm:gap-4">
+        <a href="#" class="inline-flex items-center gap-2.5 sm:gap-3 rounded-2xl bg-white text-brand-ink px-5 sm:px-6 py-3.5 sm:py-4 font-bold hover:scale-[1.03] active:scale-95 transition shadow-xl shadow-black/20">
+          <svg viewBox="0 0 24 24" class="w-6 h-6 sm:w-7 sm:h-7" fill="currentColor"><path d="M17.05 12.04c-.02-2.3 1.88-3.4 1.96-3.46-1.07-1.56-2.73-1.78-3.32-1.8-1.41-.14-2.76.83-3.48.83-.72 0-1.83-.81-3-.79-1.54.02-2.96.9-3.75 2.28-1.6 2.78-.41 6.89 1.15 9.14.76 1.1 1.67 2.34 2.86 2.29 1.15-.05 1.58-.74 2.97-.74 1.39 0 1.78.74 3 .72 1.24-.02 2.02-1.12 2.78-2.23.88-1.28 1.24-2.52 1.26-2.58-.03-.01-2.42-.93-2.44-3.69zM14.8 5.18c.63-.77 1.06-1.84.94-2.91-.91.04-2.02.61-2.68 1.37-.59.68-1.1 1.77-.96 2.81 1.02.08 2.06-.52 2.7-1.27z"/></svg>
+          <span class="text-left leading-tight"><span class="block text-[10px] sm:text-[11px] font-medium opacity-60">Download on the</span>App Store</span>
         </a>
-        <a href="#" class="inline-flex items-center gap-3 rounded-2xl bg-white text-brand-ink px-6 py-4 font-bold hover:scale-[1.03] active:scale-95 transition shadow-xl shadow-black/20">
-          <svg viewBox="0 0 24 24" class="w-7 h-7"><path fill="#34A853" d="M3.6 21.4l9.5-9.5-2.6-2.6z"/><path fill="#4285F4" d="M3.6 2.6v18.8l9.6-9.4z"/><path fill="#FBBC04" d="M16.9 8.3l-3.8 3.5 3.8 3.5 3.6-2c.9-.6.9-2.4 0-3z"/><path fill="#EA4335" d="M3.6 2.6l9.5 9.2 3.8-3.5z"/></svg>
-          <span class="text-left leading-tight"><span class="block text-[11px] font-medium opacity-60">GET IT ON</span>Google Play</span>
+        <a href="#" class="inline-flex items-center gap-2.5 sm:gap-3 rounded-2xl bg-white text-brand-ink px-5 sm:px-6 py-3.5 sm:py-4 font-bold hover:scale-[1.03] active:scale-95 transition shadow-xl shadow-black/20">
+          <svg viewBox="0 0 24 24" class="w-6 h-6 sm:w-7 sm:h-7"><path fill="#34A853" d="M3.6 21.4l9.5-9.5-2.6-2.6z"/><path fill="#4285F4" d="M3.6 2.6v18.8l9.6-9.4z"/><path fill="#FBBC04" d="M16.9 8.3l-3.8 3.5 3.8 3.5 3.6-2c.9-.6.9-2.4 0-3z"/><path fill="#EA4335" d="M3.6 2.6l9.5 9.2 3.8-3.5z"/></svg>
+          <span class="text-left leading-tight"><span class="block text-[10px] sm:text-[11px] font-medium opacity-60">GET IT ON</span>Google Play</span>
         </a>
       </div>
-      <div class="mt-8 flex flex-wrap items-center gap-x-7 gap-y-2 text-sm text-white/60 font-semibold">
-        <span class="flex items-center gap-1.5"><svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg><span data-ko>통역 정확도 95%</span><span data-ja>翻訳精度95%</span></span>
-        <span class="flex items-center gap-1.5">🇰🇷🇯🇵 <span data-ko>한·일 동시 송출</span><span data-ja>日韓同時配信</span></span>
-        <span class="flex items-center gap-1.5">⭐ <span data-ko>앱스토어 4.9</span><span data-ja>App Store 4.9</span></span>
+
+      <div class="mt-7 flex flex-wrap items-center justify-center lg:justify-start gap-x-6 gap-y-2 text-xs sm:text-sm text-white/60 font-semibold">
+        <span class="flex items-center gap-1.5"><svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg><span data-i18n="trust_acc"></span></span>
+        <span class="flex items-center gap-1.5">🇰🇷🇯🇵 <span data-i18n="trust_dual"></span></span>
+        <span class="flex items-center gap-1.5">⭐ <span data-i18n="trust_rate"></span></span>
       </div>
     </div>
 
-    <!-- phone cluster -->
-    <div class="relative h-[640px] hidden lg:block">
-      <div class="phone absolute left-0 top-20 w-[230px] rotate-[-8deg] animate-floaty" style="animation-delay:-1.5s">
-        <div class="screen aspect-[375/812] bg-[#262626]"><img src="assets/app/home.svg" alt="Rillive 홈 피드"></div>
+    <!-- big phone mockup -->
+    <div class="relative flex justify-center lg:justify-end mt-4 lg:mt-0">
+      <div class="relative animate-floaty">
+        <div class="absolute inset-0 -m-8 rounded-[3rem] grad-bg blur-3xl opacity-50"></div>
+        <!-- secondary phone behind -->
+        <div class="phone absolute -left-20 top-12 w-[180px] rotate-[-10deg] hidden xl:block opacity-90">
+          <div class="screen aspect-[375/812] bg-[#262626]"><img src="assets/app/event.svg" alt=""></div>
+        </div>
+        <!-- primary phone -->
+        <div class="phone relative w-[260px] sm:w-[300px] z-10">
+          <div class="screen aspect-[375/812] bg-black"><img src="assets/app/live1.svg" alt="Rillive 라이브 방송 화면"></div>
+        </div>
+        <div class="absolute -left-4 sm:-left-8 bottom-16 z-20 flex items-center gap-2 rounded-2xl bg-white text-brand-ink px-3 sm:px-3.5 py-2 sm:py-2.5 shadow-xl shadow-black/30 text-xs sm:text-sm font-bold animate-floaty" style="animation-delay:-2s">
+          <span class="w-7 h-7 sm:w-8 sm:h-8 rounded-full grad-bg flex items-center justify-center text-white text-[10px] sm:text-xs">AI</span>
+          <span data-i18n="float_ai"></span>
+        </div>
       </div>
-      <div class="phone absolute right-0 top-28 w-[230px] rotate-[8deg] animate-floaty" style="animation-delay:-3s">
-        <div class="screen aspect-[375/812] bg-black"><img src="assets/app/live2.svg" alt="라이브 방송"></div>
-      </div>
-      <div class="phone absolute left-1/2 -translate-x-1/2 top-4 w-[270px] z-10 animate-floaty">
-        <div class="screen aspect-[375/812] bg-black"><img src="assets/app/live1.svg" alt="라이브 방송 Now Ranking #1"></div>
-      </div>
-      <div class="absolute left-2 bottom-12 z-20 flex items-center gap-2 rounded-2xl bg-white text-brand-ink px-3.5 py-2.5 shadow-xl shadow-black/30 text-sm font-bold animate-floaty" style="animation-delay:-2s">
-        <span class="w-8 h-8 rounded-full grad-bg flex items-center justify-center text-white text-xs">AI</span>
-        <span data-ko>0.3초 실시간 번역</span><span data-ja>0.3秒で翻訳</span>
-      </div>
-      <div class="absolute right-2 bottom-24 z-20 flex items-center gap-2 rounded-2xl bg-white text-brand-ink px-3.5 py-2.5 shadow-xl shadow-black/30 text-sm font-bold animate-floaty" style="animation-delay:-4s">
-        🏆 <span data-ko>실시간 랭킹</span><span data-ja>リアルタイム順位</span>
-      </div>
-    </div>
-    <div class="lg:hidden flex justify-center">
-      <div class="phone w-[260px]"><div class="screen aspect-[375/812] bg-black"><img src="assets/app/live1.svg" alt="라이브 방송"></div></div>
     </div>
   </div>
 </section>
 
 <!-- ============ STATS STRIP ============ -->
-<section class="bg-brand-ink text-white py-14 border-t border-white/5">
-  <div class="max-w-6xl mx-auto px-10 grid grid-cols-2 md:grid-cols-4 gap-y-10 text-center">
-    <div class="reveal"><div class="text-5xl font-extrabold grad-text">95%</div><div class="mt-2 text-sm text-white/55 font-semibold"><span data-ko>AI 통역 정확도</span><span data-ja>AI翻訳精度</span></div></div>
-    <div class="reveal" style="transition-delay:.05s"><div class="text-5xl font-extrabold grad-text">2개국</div><div class="mt-2 text-sm text-white/55 font-semibold"><span data-ko>한·일 실시간 연결</span><span data-ja>日韓リアルタイム</span></div></div>
-    <div class="reveal" style="transition-delay:.1s"><div class="text-5xl font-extrabold grad-text">120만+</div><div class="mt-2 text-sm text-white/55 font-semibold"><span data-ko>누적 응원 메시지</span><span data-ja>累計応援メッセージ</span></div></div>
-    <div class="reveal" style="transition-delay:.15s"><div class="text-5xl font-extrabold grad-text">4.9★</div><div class="mt-2 text-sm text-white/55 font-semibold"><span data-ko>앱스토어 평점</span><span data-ja>App Store評価</span></div></div>
+<section class="bg-brand-ink text-white py-12 sm:py-14 border-t border-white/5">
+  <div class="max-w-6xl mx-auto px-5 sm:px-10 grid grid-cols-2 md:grid-cols-4 gap-y-9 text-center">
+    <div class="reveal"><div class="text-4xl sm:text-5xl font-extrabold grad-text">95%</div><div class="mt-2 text-xs sm:text-sm text-white/55 font-semibold" data-i18n="stat_acc"></div></div>
+    <div class="reveal" style="transition-delay:.05s"><div class="text-4xl sm:text-5xl font-extrabold grad-text" data-i18n="stat_country_v"></div><div class="mt-2 text-xs sm:text-sm text-white/55 font-semibold" data-i18n="stat_country"></div></div>
+    <div class="reveal" style="transition-delay:.1s"><div class="text-4xl sm:text-5xl font-extrabold grad-text" data-i18n="stat_msg_v"></div><div class="mt-2 text-xs sm:text-sm text-white/55 font-semibold" data-i18n="stat_msg"></div></div>
+    <div class="reveal" style="transition-delay:.15s"><div class="text-4xl sm:text-5xl font-extrabold grad-text">4.9★</div><div class="mt-2 text-xs sm:text-sm text-white/55 font-semibold" data-i18n="stat_rate"></div></div>
   </div>
 </section>
 
-<!-- ============ EDITORIAL STATEMENT (no UI) ============ -->
-<section class="relative bg-brand-ink text-white py-40 overflow-hidden">
-  <div class="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60rem] h-[40rem] rounded-full bg-brand-purple/15 blur-[160px]"></div>
-  <div class="relative max-w-5xl mx-auto px-10 text-center reveal">
-    <p class="text-brand-blue font-bold tracking-widest text-sm mb-7">NO LANGUAGE BARRIER</p>
-    <h2 class="font-extrabold tracking-tight leading-[1.15] text-5xl md:text-6xl xl:text-7xl">
-      <span data-ko class="blk">언어가 다르다고,<br><span class="text-white/30">팬이 될 수 없는 건</span><br><span class="grad-text">아니니까.</span></span>
-      <span data-ja class="blk">言葉が違っても、<br><span class="text-white/30">ファンになれないわけ</span><br><span class="grad-text">じゃないから。</span></span>
-    </h2>
-    <p class="mt-9 text-xl md:text-2xl text-white/60 leading-relaxed max-w-2xl mx-auto">
-      <span data-ko>한국의 라이버와 일본의 팬이 같은 순간, 같은 감정으로. Rillive는 언어를 지우고 사람과 사람을 잇습니다.</span>
-      <span data-ja>韓国のライバーと日本のファンが、同じ瞬間に同じ気持ちで。Rilliveは言葉を消して人と人をつなぎます。</span>
-    </p>
+<!-- ============ EDITORIAL STATEMENT (centered) ============ -->
+<section class="relative bg-brand-ink text-white py-28 sm:py-36 overflow-hidden">
+  <div class="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[50rem] h-[34rem] rounded-full bg-brand-purple/15 blur-[150px]"></div>
+  <div class="relative max-w-4xl mx-auto px-5 sm:px-10 text-center reveal">
+    <p class="text-brand-blue font-bold tracking-widest text-xs sm:text-sm mb-6">NO LANGUAGE BARRIER</p>
+    <h2 class="font-extrabold tracking-tight leading-[1.18] text-3xl sm:text-5xl xl:text-6xl" data-i18n="ed_title"></h2>
+    <p class="mt-7 text-base sm:text-xl text-white/60 leading-relaxed max-w-2xl mx-auto" data-i18n="ed_sub"></p>
   </div>
 </section>
 
-<!-- ============ FEATURE · AI TRANSLATION (1 phone accent) ============ -->
-<section id="translate" class="py-32 bg-white overflow-hidden">
-  <div class="max-w-8xl mx-auto px-10 grid lg:grid-cols-2 gap-20 items-center">
-    <div class="reveal">
-      <span class="inline-block rounded-full bg-brand-blue/10 text-brand-blue px-3.5 py-1.5 text-sm font-bold mb-5">AI REAL-TIME TRANSLATION</span>
-      <h2 class="text-5xl xl:text-[3.4rem] font-extrabold leading-[1.12] tracking-tight">
-        <span data-ko class="blk">내 일본어 댓글이,<br>0.3초 만에 <span class="grad-text">한국 팬</span>에게.</span>
-        <span data-ja class="blk">日本語のコメントが、<br>0.3秒で <span class="grad-text">韓国のファン</span>へ。</span>
-      </h2>
-      <p class="mt-6 text-xl text-gray-500 leading-relaxed max-w-lg">
-        <span data-ko>초저지연 실시간 AI 음성·텍스트 번역(정확도 95%). 더 이상 언어가 팬덤을 가르지 않습니다. 한국과 일본의 팬이 같은 라이브에서 함께 호흡합니다.</span>
-        <span data-ja>超低遅延のリアルタイムAI翻訳(精度95%)。もう言語がファンを隔てません。日韓のファンが同じライブで一緒に盛り上がります。</span>
-      </p>
-      <!-- editorial translation bubbles instead of app card -->
-      <div class="mt-9 space-y-3 max-w-lg">
-        <div class="flex items-center gap-3">
-          <span class="shrink-0 rounded-2xl rounded-bl-md bg-brand-mist px-4 py-3 text-base font-medium">かわいすぎる！応援してる🥰 <span class="text-gray-400 text-xs ml-1">JP</span></span>
-          <svg class="w-6 h-6 text-brand-blue shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5-5 5M6 12h12"/></svg>
-          <span class="rounded-2xl rounded-br-md grad-bg text-white px-4 py-3 text-base font-medium shadow-lg shadow-brand-mid/30">너무 귀여워요! 응원해요🥰</span>
-        </div>
-        <div class="flex items-center gap-3">
-          <span class="shrink-0 rounded-2xl rounded-bl-md bg-brand-mist px-4 py-3 text-base font-medium">다음 무대도 기대할게요! <span class="text-gray-400 text-xs ml-1">KR</span></span>
-          <svg class="w-6 h-6 text-brand-blue shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5-5 5M6 12h12"/></svg>
-          <span class="rounded-2xl rounded-br-md bg-brand-ink text-white px-4 py-3 text-base font-medium shadow-lg">次のステージも楽しみ！</span>
+<!-- ============ 3 CORE FEATURES (zigzag) ============ -->
+<section id="features" class="bg-white">
+
+  <!-- header (centered) -->
+  <div class="max-w-8xl mx-auto px-5 sm:px-10 pt-24 sm:pt-32 text-center reveal">
+    <span class="inline-block rounded-full bg-brand-blue/10 text-brand-blue px-3.5 py-1.5 text-xs sm:text-sm font-bold mb-5">CORE FEATURES</span>
+    <h2 class="text-3xl sm:text-5xl xl:text-[3.4rem] font-extrabold leading-[1.14] tracking-tight" data-i18n="feat_head"></h2>
+  </div>
+
+  <!-- Feature 1 : O2O event / offline debut (image right) -->
+  <div class="max-w-8xl mx-auto px-5 sm:px-10 py-20 sm:py-28 grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+    <div class="reveal text-center lg:text-left order-2 lg:order-1">
+      <span class="inline-block rounded-full bg-brand-purple/10 text-brand-purple px-3.5 py-1.5 text-xs sm:text-sm font-bold mb-4">01 · O2O EVENT</span>
+      <h3 class="text-2xl sm:text-4xl xl:text-[2.6rem] font-extrabold leading-[1.18] tracking-tight" data-i18n="f1_title"></h3>
+      <p class="mt-5 text-base sm:text-lg text-gray-500 leading-relaxed max-w-lg mx-auto lg:mx-0" data-i18n="f1_desc"></p>
+      <div class="mt-7 flex flex-wrap justify-center lg:justify-start gap-2.5 text-sm font-bold">
+        <span class="rounded-full bg-brand-mist px-4 py-2" data-i18n="f1_tag1"></span>
+        <span class="rounded-full bg-brand-mist px-4 py-2" data-i18n="f1_tag2"></span>
+        <span class="rounded-full grad-bg text-white px-4 py-2" data-i18n="f1_tag3"></span>
+      </div>
+    </div>
+    <div class="reveal flex justify-center order-1 lg:order-2">
+      <div class="phone w-[230px] sm:w-[270px]"><div class="screen aspect-[375/812] bg-[#262626]"><img src="assets/app/event.svg" alt="Rillive 이벤트 화면"></div></div>
+    </div>
+  </div>
+
+  <!-- Feature 2 : AI translation (image left) -->
+  <div class="bg-brand-mist">
+    <div class="max-w-8xl mx-auto px-5 sm:px-10 py-20 sm:py-28 grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+      <div class="reveal flex justify-center">
+        <div class="phone w-[230px] sm:w-[270px]"><div class="screen aspect-[375/812] bg-black"><img src="assets/app/live.svg" alt="Rillive 실시간 통역 라이브"></div></div>
+      </div>
+      <div class="reveal text-center lg:text-left" id="translate">
+        <span class="inline-block rounded-full bg-brand-blue/10 text-brand-blue px-3.5 py-1.5 text-xs sm:text-sm font-bold mb-4">02 · AI TRANSLATION</span>
+        <h3 class="text-2xl sm:text-4xl xl:text-[2.6rem] font-extrabold leading-[1.18] tracking-tight" data-i18n="f2_title"></h3>
+        <p class="mt-5 text-base sm:text-lg text-gray-500 leading-relaxed max-w-lg mx-auto lg:mx-0" data-i18n="f2_desc"></p>
+        <!-- translation bubble demo -->
+        <div class="mt-7 space-y-3 max-w-md mx-auto lg:mx-0 text-left">
+          <div class="flex items-center gap-2.5">
+            <span class="rounded-2xl rounded-bl-md bg-white px-3.5 py-2.5 text-sm font-medium shadow-sm">かわいすぎる！🥰 <span class="text-gray-400 text-[10px]">JP</span></span>
+            <svg class="w-5 h-5 text-brand-blue shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5-5 5M6 12h12"/></svg>
+            <span class="rounded-2xl rounded-br-md grad-bg text-white px-3.5 py-2.5 text-sm font-medium shadow-md">너무 귀여워요! 🥰</span>
+          </div>
+          <div class="flex items-center gap-2.5">
+            <span class="rounded-2xl rounded-bl-md bg-white px-3.5 py-2.5 text-sm font-medium shadow-sm">다음 무대 기대할게요 <span class="text-gray-400 text-[10px]">KR</span></span>
+            <svg class="w-5 h-5 text-brand-blue shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5-5 5M6 12h12"/></svg>
+            <span class="rounded-2xl rounded-br-md bg-brand-ink text-white px-3.5 py-2.5 text-sm font-medium shadow-md">次のステージも楽しみ！</span>
+          </div>
         </div>
       </div>
     </div>
-    <div class="reveal flex justify-center">
-      <div class="phone w-[300px]"><div class="screen aspect-[375/812] bg-black"><img src="assets/app/live.svg" alt="실시간 통역되는 라이브 화면"></div></div>
-    </div>
   </div>
-</section>
 
-<!-- ============ FULL-BLEED O2O EDITORIAL (no phone) ============ -->
-<section id="stage" class="relative py-44 text-white overflow-hidden">
-  <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=1920&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover" alt="" />
-  <div class="absolute inset-0 bg-gradient-to-r from-brand-ink via-brand-ink/85 to-brand-ink/40"></div>
-  <div class="absolute inset-0 bg-gradient-to-t from-brand-ink/90 via-transparent to-brand-ink/40"></div>
-  <div class="relative max-w-8xl mx-auto px-10">
-    <div class="max-w-2xl reveal">
-      <span class="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur px-3.5 py-1.5 text-sm font-bold mb-6 border border-white/15">🎬 O2O GLOBAL EVENT · <span data-ko>17개 모집중</span><span data-ja>17件募集中</span></span>
-      <h2 class="text-5xl xl:text-6xl font-extrabold leading-[1.1] tracking-tight">
-        <span data-ko class="blk">라이브 1위가,<br><span class="grad-text">진짜 무대</span>가 됩니다</span>
-        <span data-ja class="blk">ライブ1位が、<br><span class="grad-text">本物の舞台</span>に。</span>
-      </h2>
-      <p class="mt-7 text-xl text-white/75 leading-relaxed max-w-xl">
-        <span data-ko>잡지 모델 선발, 아이돌 멤버 선발 — 이벤트 결과가 실제 화보 촬영과 공연 무대 데뷔로 직결됩니다. 온라인의 1위가 오프라인의 데뷔가 되는 순간.</span>
-        <span data-ja>雑誌モデル・アイドル選抜など、イベント結果が実際の撮影・舞台デビューに直結。オンライン1位がオフラインのデビューになる瞬間。</span>
-      </p>
-      <!-- step flow inline -->
-      <div class="mt-10 flex flex-wrap items-center gap-3 text-sm font-bold">
-        <span class="rounded-full bg-white/10 backdrop-blur border border-white/15 px-4 py-2.5"><span data-ko>① 휴대폰으로 라이브</span><span data-ja>① スマホでライブ</span></span>
-        <svg class="w-5 h-5 text-white/40" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
-        <span class="rounded-full grad-bg px-4 py-2.5 shadow-lg shadow-brand-purple/40"><span data-ko>② 팬 응원으로 랭킹 1위</span><span data-ja>② 応援で1位</span></span>
-        <svg class="w-5 h-5 text-white/40" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
-        <span class="rounded-full bg-white/10 backdrop-blur border border-white/15 px-4 py-2.5"><span data-ko>③ 화보·무대 데뷔</span><span data-ja>③ 撮影・舞台デビュー</span></span>
+  <!-- Feature 3 : Fandom ranking + growth characters (image right) -->
+  <div id="ranking" class="max-w-8xl mx-auto px-5 sm:px-10 py-20 sm:py-28 grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+    <div class="reveal text-center lg:text-left order-2 lg:order-1">
+      <span class="inline-block rounded-full bg-brand-purple/10 text-brand-purple px-3.5 py-1.5 text-xs sm:text-sm font-bold mb-4">03 · FANDOM RANKING</span>
+      <h3 class="text-2xl sm:text-4xl xl:text-[2.6rem] font-extrabold leading-[1.18] tracking-tight" data-i18n="f3_title"></h3>
+      <p class="mt-5 text-base sm:text-lg text-gray-500 leading-relaxed max-w-lg mx-auto lg:mx-0" data-i18n="f3_desc"></p>
+
+      <!-- growth stages : pixel characters -->
+      <div class="mt-8 rounded-3xl bg-brand-mist p-5 sm:p-6">
+        <div class="text-xs font-bold text-gray-400 mb-4 text-center lg:text-left" data-i18n="f3_growth_label"></div>
+        <div class="flex items-end justify-center lg:justify-between gap-1 sm:gap-2">
+          <div class="flex flex-col items-center gap-2 w-14">
+            <div class="h-16 flex items-end"><img src="assets/char/char1-egg.svg" class="pixel w-9 animate-bobby" alt="Lv.1"></div>
+            <span class="text-[10px] sm:text-xs font-bold text-gray-500">Lv.1</span>
+          </div>
+          <svg class="w-4 h-4 text-gray-300 mb-7 shrink-0" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+          <div class="flex flex-col items-center gap-2 w-14">
+            <div class="h-16 flex items-end"><img src="assets/char/char2-orange.svg" class="pixel w-10 animate-bobby" style="animation-delay:-.4s" alt="Lv.2"></div>
+            <span class="text-[10px] sm:text-xs font-bold text-gray-500">Lv.2</span>
+          </div>
+          <svg class="w-4 h-4 text-gray-300 mb-7 shrink-0" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+          <div class="flex flex-col items-center gap-2 w-14">
+            <div class="h-16 flex items-end"><img src="assets/char/char3-pink.svg" class="pixel w-10 animate-bobby" style="animation-delay:-.8s" alt="Lv.3"></div>
+            <span class="text-[10px] sm:text-xs font-bold text-gray-500">Lv.3</span>
+          </div>
+          <svg class="w-4 h-4 text-gray-300 mb-7 shrink-0" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+          <div class="flex flex-col items-center gap-2 w-14">
+            <div class="h-16 flex items-end"><img src="assets/char/char4-blue.svg" class="pixel w-11 animate-bobby" style="animation-delay:-1.2s" alt="Lv.4"></div>
+            <span class="text-[10px] sm:text-xs font-bold text-gray-500">Lv.4</span>
+          </div>
+          <svg class="w-4 h-4 text-gray-300 mb-7 shrink-0" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+          <div class="flex flex-col items-center gap-2 w-14">
+            <div class="h-16 flex items-end"><img src="assets/char/char5-star.svg" class="pixel w-12 animate-bobby" style="animation-delay:-1.6s" alt="Lv.5"></div>
+            <span class="text-[10px] sm:text-xs font-extrabold grad-text">STAR</span>
+          </div>
+        </div>
       </div>
     </div>
+    <div class="reveal flex justify-center order-1 lg:order-2">
+      <div class="phone w-[230px] sm:w-[270px]"><div class="screen aspect-[375/812] bg-black"><img src="assets/app/live2.svg" alt="Rillive 라이버 랭킹 화면"></div></div>
+    </div>
   </div>
 </section>
 
-<!-- ============ APP PREVIEW GALLERY (all screens, showcase) ============ -->
-<section id="preview" class="py-32 bg-brand-mist overflow-hidden">
-  <div class="max-w-8xl mx-auto px-10 text-center reveal">
-    <span class="inline-block rounded-full bg-brand-purple/10 text-brand-purple px-3.5 py-1.5 text-sm font-bold mb-5">APP PREVIEW</span>
-    <h2 class="text-5xl xl:text-[3.4rem] font-extrabold leading-[1.12] tracking-tight">
-      <span data-ko class="blk">Rillive를 <span class="grad-text">미리 만나보세요</span></span>
-      <span data-ja class="blk">Rilliveを <span class="grad-text">のぞいてみる</span></span>
-    </h2>
-    <p class="mt-6 text-xl text-gray-500 max-w-2xl mx-auto"><span data-ko>인기·신규·K-POP·먹방 라이브부터, 모집 중인 글로벌 이벤트까지. 실제 화면 그대로.</span><span data-ja>人気・新規・K-POP・モッパンから、募集中のグローバルイベントまで。実画面そのまま。</span></p>
-  </div>
-
-  <!-- fanned phone gallery -->
-  <div class="reveal mt-16 flex justify-center items-end gap-[-2rem]">
-    <div class="flex justify-center items-end" style="gap:-24px">
-      <div class="phone w-[210px] rotate-[-12deg] translate-y-6 hidden md:block z-0"><div class="screen aspect-[375/812] bg-[#262626]"><img src="assets/app/home.svg" alt="홈"></div></div>
-      <div class="phone w-[220px] rotate-[-6deg] translate-y-2 -ml-8 z-10 hidden sm:block"><div class="screen aspect-[375/812] bg-black"><img src="assets/app/live2.svg" alt="라이브 #3"></div></div>
-      <div class="phone w-[250px] -ml-8 z-30"><div class="screen aspect-[375/812] bg-black"><img src="assets/app/live1.svg" alt="라이브 #1"></div></div>
-      <div class="phone w-[220px] rotate-[6deg] translate-y-2 -ml-8 z-10 hidden sm:block"><div class="screen aspect-[375/812] bg-black"><img src="assets/app/live.svg" alt="라이브 #2"></div></div>
-      <div class="phone w-[210px] rotate-[12deg] translate-y-6 -ml-8 z-0 hidden md:block"><div class="screen aspect-[375/812] bg-[#262626]"><img src="assets/app/event.svg" alt="이벤트"></div></div>
+<!-- ============ AUDITION HOOK (slim, centered) ============ -->
+<section class="py-24 sm:py-28 bg-brand-ink text-white relative overflow-hidden">
+  <div class="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 w-[40rem] h-[40rem] rounded-full bg-brand-purple/20 blur-[150px]"></div>
+  <div class="relative max-w-3xl mx-auto px-5 sm:px-10 text-center">
+    <span class="inline-flex items-center gap-2 rounded-full bg-red-500/20 text-red-300 px-3.5 py-1.5 text-xs sm:text-sm font-bold mb-5"><span class="w-2 h-2 rounded-full bg-red-400 animate-pulse"></span>NOW VOTING</span>
+    <h2 class="text-2xl sm:text-4xl xl:text-5xl font-extrabold leading-[1.16] tracking-tight reveal" data-i18n="aud_title"></h2>
+    <p class="mt-5 text-base sm:text-lg text-white/60 reveal" data-i18n="aud_sub"></p>
+    <div id="countdown" class="mt-8 flex items-center justify-center gap-2.5 sm:gap-4 reveal">
+      <div class="glass rounded-2xl w-[72px] sm:w-24 py-4 sm:py-5"><div class="text-2xl sm:text-4xl font-extrabold tabular-nums" data-d>0</div><div class="text-[10px] sm:text-xs text-white/50 font-semibold mt-1">DAYS</div></div>
+      <div class="glass rounded-2xl w-[72px] sm:w-24 py-4 sm:py-5"><div class="text-2xl sm:text-4xl font-extrabold tabular-nums" data-h>0</div><div class="text-[10px] sm:text-xs text-white/50 font-semibold mt-1">HOURS</div></div>
+      <div class="glass rounded-2xl w-[72px] sm:w-24 py-4 sm:py-5"><div class="text-2xl sm:text-4xl font-extrabold tabular-nums" data-m>0</div><div class="text-[10px] sm:text-xs text-white/50 font-semibold mt-1">MIN</div></div>
+      <div class="glass rounded-2xl w-[72px] sm:w-24 py-4 sm:py-5"><div class="text-2xl sm:text-4xl font-extrabold tabular-nums grad-text" data-s>0</div><div class="text-[10px] sm:text-xs text-white/50 font-semibold mt-1">SEC</div></div>
     </div>
-  </div>
-
-  <div class="reveal mt-14 flex flex-wrap justify-center gap-2.5">
-    <span class="rounded-full bg-white px-4 py-2 text-sm font-bold shadow-sm">🔥 인기 라이브</span>
-    <span class="rounded-full bg-white px-4 py-2 text-sm font-bold shadow-sm">🎵 K-POP</span>
-    <span class="rounded-full bg-white px-4 py-2 text-sm font-bold shadow-sm">🍜 먹방</span>
-    <span class="rounded-full bg-white px-4 py-2 text-sm font-bold shadow-sm">🏆 실시간 랭킹</span>
-    <span class="rounded-full bg-white px-4 py-2 text-sm font-bold shadow-sm">🎬 글로벌 이벤트</span>
-  </div>
-</section>
-
-<!-- ============ AUDITION HOOK (countdown + marquee) ============ -->
-<section id="audition" class="py-32 bg-brand-ink text-white relative overflow-hidden">
-  <div class="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 w-[50rem] h-[50rem] rounded-full bg-brand-purple/20 blur-[160px]"></div>
-  <div class="relative max-w-5xl mx-auto px-10 text-center">
-    <span class="inline-flex items-center gap-2 rounded-full bg-red-500/20 text-red-300 px-3.5 py-1.5 text-sm font-bold mb-6"><span class="w-2 h-2 rounded-full bg-red-400 animate-pulse"></span>NOW VOTING</span>
-    <h2 class="text-5xl xl:text-6xl font-extrabold leading-[1.1] tracking-tight reveal">
-      <span data-ko class="blk">글로벌 데뷔조 오디션,<br><span class="grad-text">지금 투표 진행중</span></span>
-      <span data-ja class="blk">グローバルデビュー オーディション、<br><span class="grad-text">投票受付中</span></span>
-    </h2>
-    <p class="mt-6 text-xl text-white/60 max-w-xl mx-auto reveal"><span data-ko>당신의 한 표가 누군가의 데뷔를 결정합니다. 마감까지 남은 시간:</span><span data-ja>あなたの1票がデビューを決める。締切まで:</span></p>
-
-    <div id="countdown" class="mt-9 flex items-center justify-center gap-4 reveal">
-      <div class="glass rounded-2xl w-24 py-5"><div class="text-4xl font-extrabold tabular-nums" data-d>0</div><div class="text-xs text-white/50 font-semibold mt-1">DAYS</div></div>
-      <div class="glass rounded-2xl w-24 py-5"><div class="text-4xl font-extrabold tabular-nums" data-h>0</div><div class="text-xs text-white/50 font-semibold mt-1">HOURS</div></div>
-      <div class="glass rounded-2xl w-24 py-5"><div class="text-4xl font-extrabold tabular-nums" data-m>0</div><div class="text-xs text-white/50 font-semibold mt-1">MIN</div></div>
-      <div class="glass rounded-2xl w-24 py-5"><div class="text-4xl font-extrabold tabular-nums grad-text" data-s>0</div><div class="text-xs text-white/50 font-semibold mt-1">SEC</div></div>
-    </div>
-
-    <a href="#start" class="mt-10 inline-flex items-center gap-2 rounded-full grad-bg px-8 py-4 font-bold text-lg hover:scale-[1.03] active:scale-95 transition shadow-xl shadow-brand-purple/40 reveal">
-      <span data-ko>앱에서 투표 참여하기</span><span data-ja>アプリで投票する</span>
+    <a href="#start" class="mt-9 inline-flex items-center gap-2 rounded-full grad-bg px-7 sm:px-8 py-4 font-bold text-base sm:text-lg hover:scale-[1.03] active:scale-95 transition shadow-xl shadow-brand-purple/40 reveal">
+      <span data-i18n="aud_cta"></span>
       <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5-5 5M6 12h12"/></svg>
     </a>
   </div>
-
-  <div class="mt-16 overflow-hidden no-scrollbar relative" style="mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)">
-    <div class="flex gap-4 w-max animate-marquee">
-      <div class="flex gap-4" id="leaderset"></div>
-      <div class="flex gap-4" id="leaderset2"></div>
-    </div>
-  </div>
 </section>
 
-<!-- ============ TESTIMONIALS (editorial social proof) ============ -->
-<section class="py-32 bg-white">
-  <div class="max-w-8xl mx-auto px-10">
-    <div class="text-center max-w-2xl mx-auto reveal">
-      <span class="inline-block rounded-full bg-brand-blue/10 text-brand-blue px-3.5 py-1.5 text-sm font-bold mb-5">REAL VOICES</span>
-      <h2 class="text-5xl xl:text-[3.4rem] font-extrabold leading-[1.12] tracking-tight">
-        <span data-ko class="blk">먼저 만난 사람들의<br>이야기</span>
-        <span data-ja class="blk">先に出会った人たちの<br>声</span>
-      </h2>
-    </div>
-    <div class="mt-16 grid md:grid-cols-3 gap-6">
-      <div class="reveal rounded-3xl bg-brand-mist p-8">
-        <div class="text-brand-purple text-4xl font-serif leading-none mb-4">"</div>
-        <p class="text-lg leading-relaxed font-medium"><span data-ko>일본 팬분들이랑 실시간으로 대화하는 게 진짜 신기해요. 댓글이 바로 번역돼서 진짜 같이 노는 느낌.</span><span data-ja>日本のファンとリアルタイムで話せるのが本当にすごい。コメントがすぐ翻訳されて一緒に遊んでる感覚。</span></p>
-        <div class="mt-6 flex items-center gap-3">
-          <img src="https://i.pravatar.cc/48?img=5" class="w-11 h-11 rounded-full" alt="">
-          <div><div class="font-bold text-sm">민지 · MINJI</div><div class="text-xs text-gray-400"><span data-ko>라이버 · 서울</span><span data-ja>ライバー · ソウル</span></div></div>
-        </div>
-      </div>
-      <div class="reveal rounded-3xl grad-bg text-white p-8 shadow-xl shadow-brand-mid/30" style="transition-delay:.08s">
-        <div class="text-white/50 text-4xl font-serif leading-none mb-4">"</div>
-        <p class="text-lg leading-relaxed font-medium"><span data-ko>좋아하는 한국 라이버를 응원하다 보니 데뷔 무대까지 함께 보게 됐어요. 내가 키운 스타라는 기분이에요.</span><span data-ja>好きな韓国ライバーを応援していたら、デビュー舞台まで一緒に見届けられた。自分が育てたスターって感じ。</span></p>
-        <div class="mt-6 flex items-center gap-3">
-          <img src="https://i.pravatar.cc/48?img=47" class="w-11 h-11 rounded-full ring-2 ring-white/40" alt="">
-          <div><div class="font-bold text-sm">あいか · AIKA</div><div class="text-xs text-white/70"><span data-ko>팬 · 도쿄</span><span data-ja>ファン · 東京</span></div></div>
-        </div>
-      </div>
-      <div class="reveal rounded-3xl bg-brand-mist p-8" style="transition-delay:.16s">
-        <div class="text-brand-purple text-4xl font-serif leading-none mb-4">"</div>
-        <p class="text-lg leading-relaxed font-medium"><span data-ko>스펙도 경력도 없었는데, 휴대폰 하나로 시작해서 잡지 화보까지 찍었어요. 진짜 기회는 여기 있었어요.</span><span data-ja>スペックも経歴もなかったけど、スマホひとつで始めて雑誌の撮影まで。本当のチャンスはここにあった。</span></p>
-        <div class="mt-6 flex items-center gap-3">
-          <img src="https://i.pravatar.cc/48?img=31" class="w-11 h-11 rounded-full" alt="">
-          <div><div class="font-bold text-sm">하린 · HARIN</div><div class="text-xs text-gray-400"><span data-ko>라이버 · 부산</span><span data-ja>ライバー · 釜山</span></div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ FINAL CTA ============ -->
-<section id="start" class="py-40 grad-bg-deep text-white relative overflow-hidden">
-  <div class="pointer-events-none absolute -bottom-40 -left-20 w-[42rem] h-[42rem] rounded-full bg-brand-blue/30 blur-[150px]"></div>
-  <div class="pointer-events-none absolute -top-40 -right-20 w-[42rem] h-[42rem] rounded-full bg-brand-purple/30 blur-[150px]"></div>
-  <div class="relative max-w-4xl mx-auto px-10 text-center reveal">
-    <h2 class="text-6xl xl:text-7xl font-extrabold leading-[1.08] tracking-tight">
-      <span class="blk">Take the Stage,<br><span class="grad-text">Connect with Your Fans</span></span>
+<!-- ============ FINAL CTA (centered) ============ -->
+<section id="start" class="py-28 sm:py-36 grad-bg-deep text-white relative overflow-hidden">
+  <div class="pointer-events-none absolute -bottom-40 -left-20 w-[36rem] h-[36rem] rounded-full bg-brand-blue/30 blur-[150px]"></div>
+  <div class="pointer-events-none absolute -top-40 -right-20 w-[36rem] h-[36rem] rounded-full bg-brand-purple/30 blur-[150px]"></div>
+  <div class="relative max-w-3xl mx-auto px-5 sm:px-10 text-center reveal">
+    <h2 class="text-4xl sm:text-6xl xl:text-7xl font-extrabold leading-[1.08] tracking-tight">
+      <span class="block">Your Stage Awaits.</span>
+      <span class="block grad-text">Be the Next Star.</span>
     </h2>
-    <p class="mt-7 text-xl text-white/65"><span data-ko>지금 시작되는 새로운 라이브의 방식, 릴라이브. 지금 바로 다운로드하세요.</span><span data-ja>新しいライブのかたち、Rillive。今すぐダウンロード。</span></p>
-    <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
-      <a href="#" class="inline-flex items-center gap-3 rounded-2xl bg-white text-brand-ink px-7 py-4 font-bold hover:scale-[1.03] active:scale-95 transition shadow-xl shadow-black/20">
-        <svg viewBox="0 0 24 24" class="w-7 h-7" fill="currentColor"><path d="M17.05 12.04c-.02-2.3 1.88-3.4 1.96-3.46-1.07-1.56-2.73-1.78-3.32-1.8-1.41-.14-2.76.83-3.48.83-.72 0-1.83-.81-3-.79-1.54.02-2.96.9-3.75 2.28-1.6 2.78-.41 6.89 1.15 9.14.76 1.1 1.67 2.34 2.86 2.29 1.15-.05 1.58-.74 2.97-.74 1.39 0 1.78.74 3 .72 1.24-.02 2.02-1.12 2.78-2.23.88-1.28 1.24-2.52 1.26-2.58-.03-.01-2.42-.93-2.44-3.69zM14.8 5.18c.63-.77 1.06-1.84.94-2.91-.91.04-2.02.61-2.68 1.37-.59.68-1.1 1.77-.96 2.81 1.02.08 2.06-.52 2.7-1.27z"/></svg>App Store
+    <p class="mt-6 text-base sm:text-xl text-white/65" data-i18n="cta_sub"></p>
+    <div class="mt-9 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
+      <a href="#" class="inline-flex items-center gap-2.5 sm:gap-3 rounded-2xl bg-white text-brand-ink px-6 sm:px-7 py-4 font-bold hover:scale-[1.03] active:scale-95 transition shadow-xl shadow-black/20">
+        <svg viewBox="0 0 24 24" class="w-6 h-6 sm:w-7 sm:h-7" fill="currentColor"><path d="M17.05 12.04c-.02-2.3 1.88-3.4 1.96-3.46-1.07-1.56-2.73-1.78-3.32-1.8-1.41-.14-2.76.83-3.48.83-.72 0-1.83-.81-3-.79-1.54.02-2.96.9-3.75 2.28-1.6 2.78-.41 6.89 1.15 9.14.76 1.1 1.67 2.34 2.86 2.29 1.15-.05 1.58-.74 2.97-.74 1.39 0 1.78.74 3 .72 1.24-.02 2.02-1.12 2.78-2.23.88-1.28 1.24-2.52 1.26-2.58-.03-.01-2.42-.93-2.44-3.69zM14.8 5.18c.63-.77 1.06-1.84.94-2.91-.91.04-2.02.61-2.68 1.37-.59.68-1.1 1.77-.96 2.81 1.02.08 2.06-.52 2.7-1.27z"/></svg>App Store
       </a>
-      <a href="#" class="inline-flex items-center gap-3 rounded-2xl bg-white text-brand-ink px-7 py-4 font-bold hover:scale-[1.03] active:scale-95 transition shadow-xl shadow-black/20">
-        <svg viewBox="0 0 24 24" class="w-7 h-7"><path fill="#34A853" d="M3.6 21.4l9.5-9.5-2.6-2.6z"/><path fill="#4285F4" d="M3.6 2.6v18.8l9.6-9.4z"/><path fill="#FBBC04" d="M16.9 8.3l-3.8 3.5 3.8 3.5 3.6-2c.9-.6.9-2.4 0-3z"/><path fill="#EA4335" d="M3.6 2.6l9.5 9.2 3.8-3.5z"/></svg>Google Play
+      <a href="#" class="inline-flex items-center gap-2.5 sm:gap-3 rounded-2xl bg-white text-brand-ink px-6 sm:px-7 py-4 font-bold hover:scale-[1.03] active:scale-95 transition shadow-xl shadow-black/20">
+        <svg viewBox="0 0 24 24" class="w-6 h-6 sm:w-7 sm:h-7"><path fill="#34A853" d="M3.6 21.4l9.5-9.5-2.6-2.6z"/><path fill="#4285F4" d="M3.6 2.6v18.8l9.6-9.4z"/><path fill="#FBBC04" d="M16.9 8.3l-3.8 3.5 3.8 3.5 3.6-2c.9-.6.9-2.4 0-3z"/><path fill="#EA4335" d="M3.6 2.6l9.5 9.2 3.8-3.5z"/></svg>Google Play
       </a>
-    </div>
-    <div class="mt-10 pt-8 border-t border-white/10 max-w-md mx-auto">
-      <p class="text-sm text-white/60 mb-3"><span data-ko>라이버로 데뷔하고 싶다면? 프리시즌 챌린지 알림 받기 (D-7)</span><span data-ja>ライバーデビューしたい？プレシーズン通知 (D-7)</span></p>
-      <div class="glass rounded-2xl p-2 flex flex-col sm:flex-row gap-2">
-        <input type="text" placeholder="휴대폰 번호 입력" class="flex-1 bg-white/10 rounded-xl px-4 py-3.5 text-sm placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-brand-blue" />
-        <button onclick="alert('프리시즌 데뷔 챌린지 신청이 접수되었습니다! 앱에서 이어집니다.')" class="rounded-xl grad-bg px-6 py-3.5 text-sm font-bold whitespace-nowrap hover:brightness-110 active:scale-95 transition">
-          <span data-ko>챌린지 신청</span><span data-ja>申し込む</span>
-        </button>
-      </div>
     </div>
   </div>
 </section>
 
 <!-- ============ FOOTER ============ -->
-<footer class="bg-brand-ink text-white/60 pt-20 pb-12">
-  <div class="max-w-8xl mx-auto px-10">
-    <div class="grid md:grid-cols-[1.5fr_1fr_1fr] gap-12 pb-12 border-b border-white/10">
+<footer class="bg-brand-ink text-white/60 pt-16 sm:pt-20 pb-10 sm:pb-12">
+  <div class="max-w-8xl mx-auto px-5 sm:px-10">
+    <div class="grid sm:grid-cols-2 md:grid-cols-[1.5fr_1fr_1fr] gap-10 sm:gap-12 pb-10 sm:pb-12 border-b border-white/10">
       <div>
         <div class="flex items-center gap-2.5 mb-4">
           <span class="w-9 h-9 rounded-[11px] grad-bg flex items-center justify-center">
@@ -374,28 +314,27 @@
           </span>
           <span class="font-extrabold text-xl text-white">Rillive</span>
         </div>
-        <p class="text-sm max-w-sm leading-relaxed"><span data-ko>팬덤과 함께 성장하는 글로벌 O2O 라이브 플랫폼. 휴대폰 하나로 누구나 라이버가 됩니다.</span><span data-ja>ファンと成長するグローバルO2Oライブ。スマホひとつで誰でもライバーに。</span></p>
+        <p class="text-sm max-w-sm leading-relaxed" data-i18n="foot_desc"></p>
         <div class="mt-6">
-          <div class="text-xs font-bold text-white/40 mb-2"><span data-ko>제휴 · 비즈니스 문의</span><span data-ja>提携・ビジネス</span></div>
+          <div class="text-xs font-bold text-white/40 mb-2" data-i18n="foot_partner"></div>
           <a href="mailto:partners@rillive.com" class="text-sm font-semibold text-brand-blue hover:underline">partners@rillive.com</a>
         </div>
       </div>
       <div class="text-sm">
-        <div class="font-bold text-white/80 mb-3"><span data-ko>서비스</span><span data-ja>サービス</span></div>
+        <div class="font-bold text-white/80 mb-3" data-i18n="foot_service"></div>
         <ul class="space-y-2.5">
-          <li><a href="#translate" class="hover:text-white"><span data-ko>실시간 통역</span><span data-ja>翻訳</span></a></li>
-          <li><a href="#stage" class="hover:text-white"><span data-ko>데뷔 스토리</span><span data-ja>デビュー</span></a></li>
-          <li><a href="#preview" class="hover:text-white"><span data-ko>앱 미리보기</span><span data-ja>アプリ</span></a></li>
-          <li><a href="#audition" class="hover:text-white"><span data-ko>오디션</span><span data-ja>オーディション</span></a></li>
+          <li><a href="#features" class="hover:text-white" data-i18n="nav_features"></a></li>
+          <li><a href="#translate" class="hover:text-white" data-i18n="nav_translate"></a></li>
+          <li><a href="#ranking" class="hover:text-white" data-i18n="nav_ranking"></a></li>
         </ul>
       </div>
       <div class="text-sm">
-        <div class="font-bold text-white/80 mb-3"><span data-ko>회사</span><span data-ja>会社</span></div>
+        <div class="font-bold text-white/80 mb-3" data-i18n="foot_company"></div>
         <ul class="space-y-2.5">
           <li><a href="#" class="hover:text-white">About</a></li>
           <li><a href="#" class="hover:text-white">Careers</a></li>
-          <li><a href="#" class="hover:text-white"><span data-ko>이용약관</span><span data-ja>規約</span></a></li>
-          <li><a href="#" class="hover:text-white"><span data-ko>개인정보처리방침</span><span data-ja>プライバシー</span></a></li>
+          <li><a href="#" class="hover:text-white" data-i18n="foot_terms"></a></li>
+          <li><a href="#" class="hover:text-white" data-i18n="foot_privacy"></a></li>
         </ul>
       </div>
     </div>
@@ -411,22 +350,109 @@
 </footer>
 
 <script>
+  /* ---------- i18n ---------- */
+  const I18N = {
+    ko: {
+      nav_features:"핵심 기능", nav_translate:"실시간 번역", nav_ranking:"라이버 랭킹", nav_download:"앱 다운로드",
+      hero_badge:"프리시즌 데뷔 챌린지 모집중 · D-7",
+      hero_title:"언어의 장벽을 넘어,<br>글로벌 무대의 <span class='grad-text'>주인공</span>이 되세요.",
+      hero_sub:"실시간 AI 번역으로 전 세계 팬들과 소통하는 글로벌 라이브 플랫폼, Rillive.",
+      trust_acc:"번역 정확도 95%", trust_dual:"한·일 동시 송출", trust_rate:"앱스토어 4.9",
+      float_ai:"0.3초 실시간 번역",
+      stat_acc:"AI 번역 정확도", stat_country_v:"2개국", stat_country:"한·일 실시간 연결", stat_msg_v:"120만+", stat_msg:"누적 응원 메시지", stat_rate:"앱스토어 평점",
+      ed_title:"언어가 다르다고,<br>팬이 될 수 없는 건 <span class='grad-text'>아니니까.</span>",
+      ed_sub:"한국의 라이버와 일본의 팬이 같은 순간, 같은 감정으로. Rillive는 언어를 지우고 사람과 사람을 잇습니다.",
+      feat_head:"Rillive의 핵심, <span class='grad-text'>딱 3가지</span>",
+      f1_title:"라이브 1위가,<br>진짜 무대가 됩니다",
+      f1_desc:"잡지 모델 선발, 아이돌 멤버 선발 — 지금 17개의 글로벌 이벤트가 모집 중입니다. 온라인 라이브 1위가 실제 화보 촬영과 공연 무대 데뷔로 직결됩니다.",
+      f1_tag1:"📸 화보 촬영", f1_tag2:"🎤 무대 데뷔", f1_tag3:"🎬 17개 이벤트 모집중",
+      f2_title:"내 댓글이 0.3초 만에,<br>전 세계 팬에게",
+      f2_desc:"초저지연 실시간 AI 음성·텍스트 번역(정확도 95%). 음성·자막·채팅이 동시에 번역되어, 한국과 일본의 팬이 같은 라이브에서 함께 호흡합니다.",
+      f3_title:"팬과 함께 성장하는<br>라이버 랭킹",
+      f3_desc:"시청이 아닌 '참여'. 응원과 선택이 라이버의 성장을 만듭니다. 팬의 참여로 레벨업되는 라이버 — 응원하는 만큼, 라이버의 스토리가 달라집니다.",
+      f3_growth_label:"팬 응원으로 레벨업되는 라이버 성장 단계",
+      aud_title:"글로벌 데뷔조 오디션,<br><span class='grad-text'>지금 투표 진행중</span>",
+      aud_sub:"당신의 한 표가 누군가의 데뷔를 결정합니다. 마감까지 남은 시간:",
+      aud_cta:"앱에서 투표 참여하기",
+      cta_sub:"지금 시작되는 새로운 라이브의 방식, 릴라이브. 지금 바로 다운로드하세요.",
+      foot_desc:"팬덤과 함께 성장하는 글로벌 O2O 라이브 플랫폼. 휴대폰 하나로 누구나 라이버가 됩니다.",
+      foot_partner:"제휴 · 비즈니스 문의", foot_service:"서비스", foot_company:"회사", foot_terms:"이용약관", foot_privacy:"개인정보처리방침",
+    },
+    en: {
+      nav_features:"Features", nav_translate:"AI Translation", nav_ranking:"Ranking", nav_download:"Download",
+      hero_badge:"Pre-season Debut Challenge · D-7",
+      hero_title:"Beyond language barriers,<br>become the <span class='grad-text'>star</span> of the global stage.",
+      hero_sub:"Rillive — the global live platform where real-time AI translation connects you with fans around the world.",
+      trust_acc:"95% translation accuracy", trust_dual:"KR·JP simulcast", trust_rate:"App Store 4.9",
+      float_ai:"0.3s live translation",
+      stat_acc:"AI translation accuracy", stat_country_v:"2", stat_country:"countries connected live", stat_msg_v:"1.2M+", stat_msg:"cheer messages sent", stat_rate:"App Store rating",
+      ed_title:"A different language<br>shouldn't keep you from <span class='grad-text'>being a fan.</span>",
+      ed_sub:"A Korean liver and a Japanese fan, in the same moment, with the same feeling. Rillive erases language and connects people.",
+      feat_head:"Rillive's core, <span class='grad-text'>in just 3</span>",
+      f1_title:"A live #1 becomes<br>a real stage.",
+      f1_desc:"Magazine model castings, idol member auditions — 17 global events are recruiting now. Ranking #1 on a live leads directly to real photoshoots and stage debuts.",
+      f1_tag1:"📸 Photoshoot", f1_tag2:"🎤 Stage debut", f1_tag3:"🎬 17 events open",
+      f2_title:"Your comment reaches<br>fans worldwide in 0.3s.",
+      f2_desc:"Ultra-low-latency real-time AI voice & text translation (95% accuracy). Voice, captions and chat are translated at once, so Korean and Japanese fans breathe together in the same live.",
+      f3_title:"A liver ranking that<br>grows with the fans.",
+      f3_desc:"Not just watching — taking part. Your cheers and choices shape a liver's growth. Levels rise with fan participation — the more you cheer, the more their story changes.",
+      f3_growth_label:"Liver growth stages, leveled up by fan cheers",
+      aud_title:"Global debut audition,<br><span class='grad-text'>voting is live now</span>",
+      aud_sub:"Your single vote decides someone's debut. Time left until close:",
+      aud_cta:"Vote in the app",
+      cta_sub:"A new way to go live starts now. Download Rillive today.",
+      foot_desc:"A global O2O live platform that grows with its fandom. With just a phone, anyone becomes a liver.",
+      foot_partner:"Partnership · Business", foot_service:"Service", foot_company:"Company", foot_terms:"Terms", foot_privacy:"Privacy Policy",
+    },
+    ja: {
+      nav_features:"主な機能", nav_translate:"リアルタイム翻訳", nav_ranking:"ランキング", nav_download:"アプリDL",
+      hero_badge:"プレシーズン・デビューチャレンジ募集中 · D-7",
+      hero_title:"言葉の壁を越えて、<br>グローバル舞台の<span class='grad-text'>主役</span>に。",
+      hero_sub:"リアルタイムAI翻訳で世界中のファンとつながるグローバルライブ、Rillive。",
+      trust_acc:"翻訳精度95%", trust_dual:"日韓同時配信", trust_rate:"App Store 4.9",
+      float_ai:"0.3秒で翻訳",
+      stat_acc:"AI翻訳精度", stat_country_v:"2か国", stat_country:"日韓リアルタイム接続", stat_msg_v:"120万+", stat_msg:"累計応援メッセージ", stat_rate:"App Store評価",
+      ed_title:"言葉が違っても、<br>ファンになれないわけ<span class='grad-text'>じゃないから。</span>",
+      ed_sub:"韓国のライバーと日本のファンが、同じ瞬間に同じ気持ちで。Rilliveは言葉を消して人と人をつなぎます。",
+      feat_head:"Rilliveの核心は、<span class='grad-text'>たった3つ</span>",
+      f1_title:"ライブ1位が、<br>本物の舞台に。",
+      f1_desc:"雑誌モデル・アイドル選抜など、今17件のグローバルイベントが募集中。ライブ1位が実際の撮影・舞台デビューに直結します。",
+      f1_tag1:"📸 撮影", f1_tag2:"🎤 舞台デビュー", f1_tag3:"🎬 17件募集中",
+      f2_title:"コメントが0.3秒で、<br>世界中のファンへ。",
+      f2_desc:"超低遅延のリアルタイムAI音声・テキスト翻訳(精度95%)。音声・字幕・チャットが同時に翻訳され、日韓のファンが同じライブで一緒に盛り上がります。",
+      f3_title:"ファンと育つ、<br>ライバーランキング。",
+      f3_desc:"視聴ではなく「参加」。応援と選択がライバーの成長をつくります。ファンの参加でレベルアップ — 応援するほど、ライバーの物語が変わります。",
+      f3_growth_label:"ファンの応援でレベルアップするライバー成長段階",
+      aud_title:"グローバルデビュー<br>オーディション、<span class='grad-text'>投票受付中</span>",
+      aud_sub:"あなたの1票がデビューを決める。締切まで:",
+      aud_cta:"アプリで投票する",
+      cta_sub:"新しいライブのかたちが今始まる。今すぐRilliveをダウンロード。",
+      foot_desc:"ファンと成長するグローバルO2Oライブ。スマホひとつで誰でもライバーに。",
+      foot_partner:"提携・ビジネス", foot_service:"サービス", foot_company:"会社", foot_terms:"利用規約", foot_privacy:"プライバシー",
+    },
+  };
+  const LABEL = { ko:'한국어', en:'English', ja:'日本語' };
   function setLang(l){
     document.documentElement.lang = l;
-    const ko=document.getElementById('lang-ko'), ja=document.getElementById('lang-ja');
-    if(l==='ko'){ ko.classList.add('bg-white/90','!text-brand-ink'); ko.classList.remove('text-white/80');
-                  ja.classList.remove('bg-white/90','!text-brand-ink'); ja.classList.add('text-white/80'); }
-    else { ja.classList.add('bg-white/90','!text-brand-ink'); ja.classList.remove('text-white/80');
-           ko.classList.remove('bg-white/90','!text-brand-ink'); ko.classList.add('text-white/80'); }
+    document.getElementById('lang-label').textContent = LABEL[l];
+    const dict = I18N[l];
+    document.querySelectorAll('[data-i18n]').forEach(el=>{
+      const k = el.getAttribute('data-i18n');
+      if(dict[k] !== undefined) el.innerHTML = dict[k];
+    });
   }
+  setLang('ko');
 
+  /* ---------- header bg on scroll ---------- */
   const hdr=document.getElementById('hdr');
   const onScroll=()=>{ if(window.scrollY>40){ hdr.classList.add('bg-brand-ink/80','backdrop-blur-md','shadow-lg','shadow-black/20'); } else { hdr.classList.remove('bg-brand-ink/80','backdrop-blur-md','shadow-lg','shadow-black/20'); } };
   window.addEventListener('scroll',onScroll); onScroll();
 
+  /* ---------- scroll reveal ---------- */
   const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:0.1});
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
+  /* ---------- countdown ---------- */
   const target=Date.now()+7*24*60*60*1000-3*60*60*1000;
   function tick(){ let d=Math.max(0,target-Date.now());
     const D=Math.floor(d/86400000); d-=D*86400000;
@@ -436,23 +462,6 @@
     const set=(k,v)=>document.querySelector('[data-'+k+']').textContent=String(v).padStart(2,'0');
     set('d',D);set('h',H);set('m',M);set('s',S);
   } tick(); setInterval(tick,1000);
-
-  const leaders=[
-    {n:'민지 ‧ MINJI',f:'#KR',img:5,v:'128K'},
-    {n:'あいか ‧ AIKA',f:'#JP',img:47,v:'119K'},
-    {n:'서윤 ‧ SEOYUN',f:'#KR',img:12,v:'104K'},
-    {n:'ゆい ‧ YUI',f:'#JP',img:31,v:'97K'},
-    {n:'하린 ‧ HARIN',f:'#KR',img:20,v:'88K'},
-    {n:'みお ‧ MIO',f:'#JP',img:45,v:'81K'},
-  ];
-  const card=(l,r)=>`<div class="glass rounded-2xl px-4 py-3 flex items-center gap-3 w-60">
-      <div class="text-lg font-extrabold grad-text w-6">${r}</div>
-      <img src="https://i.pravatar.cc/56?img=${l.img}" class="w-11 h-11 rounded-full" alt="">
-      <div class="text-left"><div class="text-sm font-bold text-white leading-tight">${l.n}</div>
-      <div class="text-[11px] text-white/50">${l.f} · 💎 ${l.v}</div></div></div>`;
-  const html=leaders.map((l,i)=>card(l,i+1)).join('');
-  document.getElementById('leaderset').innerHTML=html;
-  document.getElementById('leaderset2').innerHTML=html;
 </script>
 </body>
 </html>
