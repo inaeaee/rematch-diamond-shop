@@ -35,7 +35,7 @@
 
 <style>
   html { scroll-behavior: smooth; }
-  body { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  body { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; word-break: keep-all; overflow-wrap: break-word; line-height: 1.7; }
   html:lang(ja) { font-family:'Noto Sans JP','Pretendard',sans-serif; }
 
   .grad-text { background: linear-gradient(100deg,#8FA8FF,#A98CFF,#FF8FD8); -webkit-background-clip:text; background-clip:text; color:transparent; }
@@ -95,7 +95,7 @@
 <body class="font-sans text-brand-ink bg-white">
 
 <!-- ============ HEADER ============ -->
-<header id="hdr" class="fixed top-0 inset-x-0 z-50 transition-all duration-300">
+<header id="hdr" class="fixed top-0 inset-x-0 z-50 bg-black/50 backdrop-blur-md border-b border-white/10 transition-all duration-300">
   <div class="max-w-8xl mx-auto px-5 sm:px-8 lg:px-10 h-16 sm:h-[72px] flex items-center justify-between">
     <a href="#top" class="flex items-center gap-2.5">
       <span class="w-9 h-9 rounded-[11px] grad-bg flex items-center justify-center shadow-lg shadow-brand-mid/30">
@@ -123,7 +123,7 @@
           <button onclick="setLang('ja')" class="w-full text-left px-4 py-2.5 text-sm font-semibold text-brand-ink hover:bg-brand-mist">日本語</button>
         </div>
       </div>
-      <a href="#start" class="inline-flex items-center gap-1.5 rounded-full bg-white text-brand-ink px-4 sm:px-5 py-2 sm:py-2.5 text-sm sm:text-[15px] font-bold hover:scale-[1.03] active:scale-95 transition shadow-lg shadow-black/10" data-i18n="nav_download"></a>
+      <a href="#start" class="inline-flex items-center gap-1.5 rounded-full bg-white text-brand-ink px-4 sm:px-5 py-2 sm:py-2.5 text-sm sm:text-[15px] font-bold hover:scale-105 active:scale-95 transition-all duration-200 shadow-lg shadow-black/10" data-i18n="nav_download"></a>
     </div>
   </div>
 </header>
@@ -140,15 +140,15 @@
         <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
         <span data-i18n="hero_badge"></span>
       </span>
-      <h1 class="fadeup font-extrabold tracking-tight leading-[1.06] text-5xl sm:text-6xl lg:text-7xl xl:text-[5rem] text-white" style="animation-delay:.15s" data-i18n="hero_title"></h1>
-      <p class="fadeup mt-6 sm:mt-7 text-lg sm:text-xl text-gray-300 font-normal leading-relaxed max-w-md sm:max-w-xl mx-auto lg:mx-0" style="animation-delay:.3s" data-i18n="hero_sub"></p>
+      <h1 class="fadeup font-extrabold tracking-tight leading-snug break-keep text-4xl md:text-5xl xl:text-6xl text-white" style="animation-delay:.15s" data-i18n="hero_title"></h1>
+      <p class="fadeup mt-6 sm:mt-7 text-lg sm:text-xl text-gray-300 font-normal leading-loose max-w-md sm:max-w-xl mx-auto lg:mx-0" style="animation-delay:.3s" data-i18n="hero_sub"></p>
 
       <div class="fadeup mt-9 flex flex-wrap items-center justify-center lg:justify-start gap-3 sm:gap-4" style="animation-delay:.45s">
-        <a href="#" class="inline-flex items-center gap-2.5 sm:gap-3 rounded-2xl bg-white text-brand-ink px-5 sm:px-6 py-3.5 sm:py-4 font-bold hover:scale-[1.03] active:scale-95 transition shadow-xl shadow-black/30">
+        <a href="#" class="inline-flex items-center gap-2.5 sm:gap-3 rounded-2xl bg-white text-brand-ink px-5 sm:px-6 py-3.5 sm:py-4 font-bold hover:scale-105 active:scale-95 transition-all duration-200 shadow-xl shadow-black/30">
           <svg viewBox="0 0 24 24" class="w-6 h-6 sm:w-7 sm:h-7" fill="currentColor"><path d="M17.05 12.04c-.02-2.3 1.88-3.4 1.96-3.46-1.07-1.56-2.73-1.78-3.32-1.8-1.41-.14-2.76.83-3.48.83-.72 0-1.83-.81-3-.79-1.54.02-2.96.9-3.75 2.28-1.6 2.78-.41 6.89 1.15 9.14.76 1.1 1.67 2.34 2.86 2.29 1.15-.05 1.58-.74 2.97-.74 1.39 0 1.78.74 3 .72 1.24-.02 2.02-1.12 2.78-2.23.88-1.28 1.24-2.52 1.26-2.58-.03-.01-2.42-.93-2.44-3.69zM14.8 5.18c.63-.77 1.06-1.84.94-2.91-.91.04-2.02.61-2.68 1.37-.59.68-1.1 1.77-.96 2.81 1.02.08 2.06-.52 2.7-1.27z"/></svg>
           <span class="text-left leading-tight"><span class="block text-[10px] sm:text-[11px] font-medium opacity-60">Download on the</span>App Store</span>
         </a>
-        <a href="#" class="inline-flex items-center gap-2.5 sm:gap-3 rounded-2xl bg-white text-brand-ink px-5 sm:px-6 py-3.5 sm:py-4 font-bold hover:scale-[1.03] active:scale-95 transition shadow-xl shadow-black/30">
+        <a href="#" class="inline-flex items-center gap-2.5 sm:gap-3 rounded-2xl bg-white text-brand-ink px-5 sm:px-6 py-3.5 sm:py-4 font-bold hover:scale-105 active:scale-95 transition-all duration-200 shadow-xl shadow-black/30">
           <svg viewBox="0 0 24 24" class="w-6 h-6 sm:w-7 sm:h-7"><path fill="#34A853" d="M3.6 21.4l9.5-9.5-2.6-2.6z"/><path fill="#4285F4" d="M3.6 2.6v18.8l9.6-9.4z"/><path fill="#FBBC04" d="M16.9 8.3l-3.8 3.5 3.8 3.5 3.6-2c.9-.6.9-2.4 0-3z"/><path fill="#EA4335" d="M3.6 2.6l9.5 9.2 3.8-3.5z"/></svg>
           <span class="text-left leading-tight"><span class="block text-[10px] sm:text-[11px] font-medium opacity-60">GET IT ON</span>Google Play</span>
         </a>
@@ -163,7 +163,7 @@
 
     <!-- front-facing iPhone with side decorations (never covering screen) -->
     <div class="fadeup relative flex justify-center items-center" style="animation-delay:.3s">
-      <div class="absolute w-[20rem] h-[20rem] rounded-full bg-gradient-to-br from-brand-purple/50 to-brand-pink/40 blur-3xl"></div>
+      <div class="absolute w-[36rem] h-[36rem] rounded-full bg-gradient-to-br from-brand-purple/60 via-brand-mid/45 to-brand-pink/45 blur-[130px]"></div>
 
       <div class="iphone relative z-10 w-[260px] sm:w-[290px] animate-floaty">
         <div class="iphone-screen aspect-[375/812]">
@@ -208,8 +208,8 @@
   <div class="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[50rem] h-[34rem] rounded-full bg-brand-purple/15 blur-[150px]"></div>
   <div class="relative max-w-4xl mx-auto px-5 sm:px-10 text-center reveal">
     <p class="text-brand-blue font-semibold tracking-[0.2em] text-xs sm:text-sm mb-6">NO LANGUAGE BARRIER</p>
-    <h2 class="font-extrabold tracking-tight leading-[1.18] text-3xl sm:text-5xl xl:text-6xl text-white" data-i18n="ed_title"></h2>
-    <p class="mt-8 text-base sm:text-xl text-gray-300 font-normal leading-relaxed max-w-2xl mx-auto" data-i18n="ed_sub"></p>
+    <h2 class="font-extrabold tracking-tight leading-normal text-3xl sm:text-5xl xl:text-6xl text-white" data-i18n="ed_title"></h2>
+    <p class="mt-8 text-base sm:text-xl text-gray-300 font-normal leading-loose max-w-2xl mx-auto" data-i18n="ed_sub"></p>
   </div>
 </section>
 
@@ -217,15 +217,15 @@
 <section id="features" class="bg-white">
   <div class="max-w-8xl mx-auto px-5 sm:px-10 pt-24 sm:pt-32 text-center reveal">
     <span class="inline-block rounded-full bg-brand-blue/10 text-brand-blue px-3.5 py-1.5 text-xs sm:text-sm font-semibold tracking-wide mb-5">CORE FEATURES</span>
-    <h2 class="text-3xl sm:text-4xl xl:text-5xl font-bold leading-[1.16] tracking-tight text-brand-ink" data-i18n="feat_head"></h2>
+    <h2 class="text-3xl sm:text-4xl xl:text-5xl font-bold leading-normal tracking-tight text-brand-ink" data-i18n="feat_head"></h2>
   </div>
 
   <!-- Feature 1 : App Preview (mockup right) -->
   <div id="preview" class="max-w-8xl mx-auto px-5 sm:px-10 py-20 sm:py-28 grid lg:grid-cols-2 gap-14 lg:gap-20 items-center">
     <div class="reveal text-center lg:text-left order-2 lg:order-1">
       <span class="inline-block rounded-full bg-brand-purple/10 text-brand-purple px-3.5 py-1.5 text-xs sm:text-sm font-semibold tracking-wide mb-4">01 · APP PREVIEW</span>
-      <h3 class="text-2xl sm:text-3xl xl:text-4xl font-bold leading-[1.22] tracking-tight text-brand-ink" data-i18n="f1_title"></h3>
-      <p class="mt-5 text-base sm:text-lg text-gray-500 font-normal leading-relaxed max-w-lg mx-auto lg:mx-0" data-i18n="f1_desc"></p>
+      <h3 class="text-2xl sm:text-3xl xl:text-4xl font-bold leading-normal tracking-tight text-brand-ink" data-i18n="f1_title"></h3>
+      <p class="mt-5 text-base sm:text-lg text-gray-500 font-normal leading-loose max-w-lg mx-auto lg:mx-0" data-i18n="f1_desc"></p>
       <div class="mt-7 flex flex-wrap justify-center lg:justify-start gap-2.5 text-sm font-semibold">
         <span class="rounded-full bg-brand-mist text-gray-700 px-4 py-2" data-i18n="f1_c1"></span>
         <span class="rounded-full bg-brand-mist text-gray-700 px-4 py-2" data-i18n="f1_c2"></span>
@@ -245,8 +245,8 @@
       </div>
       <div class="reveal text-center lg:text-left" id="translate">
         <span class="inline-block rounded-full bg-brand-blue/10 text-brand-blue px-3.5 py-1.5 text-xs sm:text-sm font-semibold tracking-wide mb-4">02 · AI TRANSLATION</span>
-        <h3 class="text-2xl sm:text-3xl xl:text-4xl font-bold leading-[1.22] tracking-tight text-brand-ink" data-i18n="f2_title"></h3>
-        <p class="mt-5 text-base sm:text-lg text-gray-500 font-normal leading-relaxed max-w-lg mx-auto lg:mx-0" data-i18n="f2_desc"></p>
+        <h3 class="text-2xl sm:text-3xl xl:text-4xl font-bold leading-normal tracking-tight text-brand-ink" data-i18n="f2_title"></h3>
+        <p class="mt-5 text-base sm:text-lg text-gray-500 font-normal leading-loose max-w-lg mx-auto lg:mx-0" data-i18n="f2_desc"></p>
         <div class="mt-7 space-y-3 max-w-md mx-auto lg:mx-0 text-left">
           <div class="flex items-center gap-2.5">
             <span class="rounded-2xl rounded-bl-md bg-white px-3.5 py-2.5 text-sm font-medium shadow-sm">かわいすぎる！🥰 <span class="text-gray-400 text-[10px]">JP</span></span>
@@ -267,8 +267,8 @@
   <div id="events" class="max-w-8xl mx-auto px-5 sm:px-10 py-20 sm:py-28 grid lg:grid-cols-2 gap-14 lg:gap-20 items-center">
     <div class="reveal text-center lg:text-left order-2 lg:order-1">
       <span class="inline-block rounded-full bg-brand-purple/10 text-brand-purple px-3.5 py-1.5 text-xs sm:text-sm font-semibold tracking-wide mb-4">03 · GLOBAL EVENTS</span>
-      <h3 class="text-2xl sm:text-3xl xl:text-4xl font-bold leading-[1.22] tracking-tight text-brand-ink" data-i18n="f3_title"></h3>
-      <p class="mt-5 text-base sm:text-lg text-gray-500 font-normal leading-relaxed max-w-lg mx-auto lg:mx-0" data-i18n="f3_desc"></p>
+      <h3 class="text-2xl sm:text-3xl xl:text-4xl font-bold leading-normal tracking-tight text-brand-ink" data-i18n="f3_title"></h3>
+      <p class="mt-5 text-base sm:text-lg text-gray-500 font-normal leading-loose max-w-lg mx-auto lg:mx-0" data-i18n="f3_desc"></p>
       <div class="mt-7 flex flex-wrap justify-center lg:justify-start gap-2.5 text-sm font-semibold">
         <span class="rounded-full bg-brand-mist text-gray-700 px-4 py-2" data-i18n="f3_c1"></span>
         <span class="rounded-full bg-brand-mist text-gray-700 px-4 py-2" data-i18n="f3_c2"></span>
@@ -285,8 +285,8 @@
 <section id="ranking" class="bg-brand-mist py-24 sm:py-32">
   <div class="max-w-4xl mx-auto px-5 sm:px-10 text-center reveal">
     <span class="inline-block rounded-full bg-brand-purple/10 text-brand-purple px-3.5 py-1.5 text-xs sm:text-sm font-semibold tracking-wide mb-4">FANDOM GROWTH</span>
-    <h2 class="text-3xl sm:text-4xl xl:text-5xl font-bold leading-[1.18] tracking-tight text-brand-ink" data-i18n="grow_title"></h2>
-    <p class="mt-5 text-base sm:text-lg text-gray-500 font-normal leading-relaxed max-w-2xl mx-auto" data-i18n="grow_desc"></p>
+    <h2 class="text-3xl sm:text-4xl xl:text-5xl font-bold leading-normal tracking-tight text-brand-ink" data-i18n="grow_title"></h2>
+    <p class="mt-5 text-base sm:text-lg text-gray-500 font-normal leading-loose max-w-2xl mx-auto" data-i18n="grow_desc"></p>
 
     <div class="mt-12 rounded-3xl bg-white p-6 sm:p-8 shadow-xl shadow-brand-mid/10">
       <div class="text-xs font-semibold text-gray-400 tracking-wide mb-6" data-i18n="grow_label"></div>
@@ -310,7 +310,7 @@
   <div class="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 w-[40rem] h-[40rem] rounded-full bg-brand-purple/20 blur-[150px]"></div>
   <div class="relative max-w-3xl mx-auto px-5 sm:px-10 text-center">
     <span class="inline-flex items-center gap-2 rounded-full bg-red-500/20 text-red-300 px-3.5 py-1.5 text-xs sm:text-sm font-semibold tracking-wide mb-5"><span class="w-2 h-2 rounded-full bg-red-400 animate-pulse"></span>NOW VOTING</span>
-    <h2 class="text-3xl sm:text-4xl xl:text-5xl font-bold leading-[1.18] tracking-tight text-white reveal" data-i18n="aud_title"></h2>
+    <h2 class="text-3xl sm:text-4xl xl:text-5xl font-bold leading-normal tracking-tight text-white reveal" data-i18n="aud_title"></h2>
     <p class="mt-5 text-base sm:text-lg text-gray-300 font-normal reveal" data-i18n="aud_sub"></p>
     <div id="countdown" class="mt-9 flex items-center justify-center gap-2.5 sm:gap-4 reveal">
       <div class="glass rounded-2xl w-[72px] sm:w-24 py-4 sm:py-5"><div class="text-2xl sm:text-4xl font-extrabold tabular-nums tracking-tight" data-d>0</div><div class="text-[10px] sm:text-xs text-gray-400 font-medium mt-1">DAYS</div></div>
@@ -318,7 +318,7 @@
       <div class="glass rounded-2xl w-[72px] sm:w-24 py-4 sm:py-5"><div class="text-2xl sm:text-4xl font-extrabold tabular-nums tracking-tight" data-m>0</div><div class="text-[10px] sm:text-xs text-gray-400 font-medium mt-1">MIN</div></div>
       <div class="glass rounded-2xl w-[72px] sm:w-24 py-4 sm:py-5"><div class="text-2xl sm:text-4xl font-extrabold tabular-nums tracking-tight grad-text-d" data-s>0</div><div class="text-[10px] sm:text-xs text-gray-400 font-medium mt-1">SEC</div></div>
     </div>
-    <a href="#start" class="mt-10 inline-flex items-center gap-2 rounded-full grad-bg px-7 sm:px-8 py-4 font-bold text-base sm:text-lg hover:scale-[1.03] active:scale-95 transition shadow-xl shadow-brand-purple/40 reveal">
+    <a href="#start" class="mt-10 inline-flex items-center gap-2 rounded-full grad-bg px-7 sm:px-8 py-4 font-bold text-base sm:text-lg hover:scale-105 active:scale-95 transition-all duration-200 shadow-xl shadow-brand-purple/40 reveal">
       <span data-i18n="aud_cta"></span>
       <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5-5 5M6 12h12"/></svg>
     </a>
@@ -330,16 +330,16 @@
   <div class="pointer-events-none absolute -bottom-40 -left-20 w-[36rem] h-[36rem] rounded-full bg-brand-blue/30 blur-[150px]"></div>
   <div class="pointer-events-none absolute -top-40 -right-20 w-[36rem] h-[36rem] rounded-full bg-brand-purple/30 blur-[150px]"></div>
   <div class="relative max-w-3xl mx-auto px-5 sm:px-10 text-center reveal">
-    <h2 class="text-4xl sm:text-6xl xl:text-7xl font-extrabold leading-[1.06] tracking-tight">
+    <h2 class="text-4xl sm:text-6xl xl:text-7xl font-extrabold leading-tight tracking-tight">
       <span class="block text-white">Your Stage Awaits.</span>
       <span class="block grad-text">Be the Next Star.</span>
     </h2>
-    <p class="mt-7 text-base sm:text-xl text-gray-300 font-normal leading-relaxed" data-i18n="cta_sub"></p>
+    <p class="mt-7 text-base sm:text-xl text-gray-300 font-normal leading-loose" data-i18n="cta_sub"></p>
     <div class="mt-9 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
-      <a href="#" class="inline-flex items-center gap-2.5 sm:gap-3 rounded-2xl bg-white text-brand-ink px-6 sm:px-7 py-4 font-bold hover:scale-[1.03] active:scale-95 transition shadow-xl shadow-black/20">
+      <a href="#" class="inline-flex items-center gap-2.5 sm:gap-3 rounded-2xl bg-white text-brand-ink px-6 sm:px-7 py-4 font-bold hover:scale-105 active:scale-95 transition-all duration-200 shadow-xl shadow-black/20">
         <svg viewBox="0 0 24 24" class="w-6 h-6 sm:w-7 sm:h-7" fill="currentColor"><path d="M17.05 12.04c-.02-2.3 1.88-3.4 1.96-3.46-1.07-1.56-2.73-1.78-3.32-1.8-1.41-.14-2.76.83-3.48.83-.72 0-1.83-.81-3-.79-1.54.02-2.96.9-3.75 2.28-1.6 2.78-.41 6.89 1.15 9.14.76 1.1 1.67 2.34 2.86 2.29 1.15-.05 1.58-.74 2.97-.74 1.39 0 1.78.74 3 .72 1.24-.02 2.02-1.12 2.78-2.23.88-1.28 1.24-2.52 1.26-2.58-.03-.01-2.42-.93-2.44-3.69zM14.8 5.18c.63-.77 1.06-1.84.94-2.91-.91.04-2.02.61-2.68 1.37-.59.68-1.1 1.77-.96 2.81 1.02.08 2.06-.52 2.7-1.27z"/></svg>App Store
       </a>
-      <a href="#" class="inline-flex items-center gap-2.5 sm:gap-3 rounded-2xl bg-white text-brand-ink px-6 sm:px-7 py-4 font-bold hover:scale-[1.03] active:scale-95 transition shadow-xl shadow-black/20">
+      <a href="#" class="inline-flex items-center gap-2.5 sm:gap-3 rounded-2xl bg-white text-brand-ink px-6 sm:px-7 py-4 font-bold hover:scale-105 active:scale-95 transition-all duration-200 shadow-xl shadow-black/20">
         <svg viewBox="0 0 24 24" class="w-6 h-6 sm:w-7 sm:h-7"><path fill="#34A853" d="M3.6 21.4l9.5-9.5-2.6-2.6z"/><path fill="#4285F4" d="M3.6 2.6v18.8l9.6-9.4z"/><path fill="#FBBC04" d="M16.9 8.3l-3.8 3.5 3.8 3.5 3.6-2c.9-.6.9-2.4 0-3z"/><path fill="#EA4335" d="M3.6 2.6l9.5 9.2 3.8-3.5z"/></svg>Google Play
       </a>
     </div>
@@ -495,7 +495,7 @@
   setLang('ko');
 
   const hdr=document.getElementById('hdr');
-  const onScroll=()=>{ if(window.scrollY>40){ hdr.classList.add('bg-brand-ink/80','backdrop-blur-md','shadow-lg','shadow-black/20'); } else { hdr.classList.remove('bg-brand-ink/80','backdrop-blur-md','shadow-lg','shadow-black/20'); } };
+  const onScroll=()=>{ if(window.scrollY>40){ hdr.classList.add('shadow-lg','shadow-black/30'); } else { hdr.classList.remove('shadow-lg','shadow-black/30'); } };
   window.addEventListener('scroll',onScroll); onScroll();
 
   const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:0.1});
